@@ -34,3 +34,59 @@ A live version of this project can be found at this url:
 + [Development and Deployment](#development-and-deployment "Development and Deployment")
 + [Content](#content "Content")
 + [Credits](#credits "Credits")
+
+## UX
+
+### User Demographic
+
+This application is ment for:
+
+ - All individuals that want to enjoy an adventure game.
+
+ ### User Stories
+
+ - I want to enjoy a small Dungens and Dragons like game.
+
+ ### User Goals
+
+ To either win the game, or enjoy the journey multiple times to recieve a diffrent outcome. 
+
+ ### Project requirements
+
+ Python application using libraries and a cloud based platform for deployment.
+
+ ### Design Diagaram
+
+ As this is a console based application, a flow chart for the choices was used to get the design started. 
+
+ ### Features
+
+ ### Existing Features
+
+ ## Technologies and libraries used
+
+ Python
+ HTML
+ CSS
+ JavaScript 
+
+Python libraries used
+
+- [termcolor](https://pypi.org/project/termcolor/)
+
+### Data storage
+
+
+## Testing
+
+### Bugs during development
+
+### Validator Testing 
+
+## Development and Deployment
+
+## Content
+
+## Credit 
+
+## Acknowledgement
