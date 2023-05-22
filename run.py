@@ -54,6 +54,7 @@ class WaterElemental():
         
 
 #creating the player instance on start game
+
 print("In search for Bartholomew also known as 'Bart the claw cuddler'")
 print("Who will start this epic journey to find Bart and help him?\n")
 player_name = input("Enter your name: ")
@@ -101,3 +102,26 @@ else:
 player = Player(player_name,player_class)
 print("Player:", player_name)
 print("Archetype:", player_class)
+
+print('''Red needs your help to find his magical cat, Bartholomew, he was kidnaped by an evil enemy called Skull, he cannot do this alone, he needs PLAYER_NAME_HERE 
+to rescue Bart and defeat his enemy, to do that, you need to find the 3 gemstones and combine them to open a portal to the Void Prison where Bart is kept.''')
+
+#start game function
+
+
+def start_game():
+    choice = ""
+    while choice not in ["y", "n"]:
+        choice = input("Are you up for this challenge? (y/n): ").lower()
+        if choice == "y":
+             return True
+        elif choice == "n":
+             return False
+        else:
+            print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
+    
+
+if start_game():
+    print("Let the adventure begin!")
+else:
+    print("Maybe next time!")
