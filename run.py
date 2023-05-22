@@ -1,69 +1,103 @@
 import termcolor
 
+#I'm going to start by defining the assets(object) the game will use.\
 
-def greet_and_get_name():
-  """
-  Greets the user and displayers the rules of the game
-  then lets them enter their character name.
+class Player():
+    def __init__(self, name, archetype):
+        self.name = name
+        self.archetype = archetype
+class Warrior():
+    def __init__(self):
+        self.name = "Warrior"
+        
+    def heroic_lead(self):
+        print("You lead a great distance with great strength!")
     
-  """
-  player_name = input ("Hello stranger what is your name?")
-  #may have to validate data here. I want their name to be anything they'd like
-  print(f"Greetings {player_name} you have chosen a great adventure. What will your path be?")
-  player_class = choose_class()
-  print("You have chosen the", player_class, "class.")
-  return player_name, player_class
+    def __str__(self):
+        return self.name
 
+class Mage():
+    def __init__(self):
+        self.name = "Mage"
+        
+    def magical_ground(self):
+        print("You create a magical ground to walk on")
 
-def choose_class():
-  """
-  Functions that let's the player choose their class
-  """ 
-  print("Please choose your class:")
-  print("1. Warrior")
-  print("2. Mage")
-  print("3. Clerk")
-  print("4.  Bard")
-  print("5. Archer")
-  print("6. Shaman")
+    def __str__(self):
+        return self.name
 
-  #while True:
-  class_choice = input("Enter the number corresponding to your class choice: ")
-
-  if class_choice == "1":
-            return "Warrior"
-  elif class_choice == "2":
-            return "Mage"
-  elif class_choice == "3":
-            return "Clerk"
-  elif class_choice == "4":
-            return "Bard"
-  elif class_choice == "5":
-            return "Archer"
-  elif class_choice == "6":
-            return "Shaman"
-  else:
-          print("invalid choice. Please try again") 
-  return class_choice
-
-def main():
-      """
-      Runs the game
-      """
-      player_name, player_class = greet_and_get_name()
-      print(player_name)
-      print(player_class)
-
-print("placeholder greetings")
-print("placeholder rules \n")
-main()    
+class Bard():
+    def __init__(self):
+        self.name = "Bard"
+        
+    def magical_books(self):
+        print("You use magic books and sing songs")
+  
+    def __str__(self):
+        return self.name
+class Clerk():
+    def __init__(self):
+        self.name = "Clerk"
+        
+    def holy_prayer(self):
+        print("You pray to the Holy Light")
     
+    def __str__(self):
+        return self.name
+
+class WaterElemental():
+    def __init__(self):
+        self.name = WaterElemental
+
+    def __str__(self):
+        return self.name
+        
+
+#creating the player instance on start game
+print("In search for Bartholomew also known as 'Bart the claw cuddler'")
+print("Who will start this epic journey to find Bart and help him?\n")
+player_name = input("Enter your name: ")
+print("Choose your class")
+print('''1. Warrior
+------
+When I was young I enjoyed playing with sticks and stones, fighting and defeating all of my father's scarecrows, 
+dreamed about becoming a powerful warrior that defeats his foes and now here I am, ready for my next challenge!\n''')
+print('''2.Mage 
+------
+Are you thirsty? sorry, my water is not drinkable!
+Hungry? I can... cook... our enemies!
+Travel from town to town in a blink of an eye? show me your money!\n''')
+
+print('''3.Bard 
+------
+In a realm of Myst
+Where the dreams come true,
+There we are in search of Bartholomew
+Also known as 'Bart the claw cuddler'
+
+And I have no idea how we will rescue him
+Deep in darkness is where we go
+Fingers crossed is what we hope
+Bart, here we come!\n''')
+
+print('''4.Clerk 
+-----
+In this dark world, instead of using swords, shields, or knives, I prefer to use my hands... to pray and heal others, 
+but also to unleash the holy power upon our enemies, I prefer to work with a group of misfits, but in the end, 
+if you pay me enough... I mean if you show me your great gratitude, I can go anywhere\n''')
+
+archetype_choice = int(input("Pick a number to choose your class: "))
+
+if archetype_choice == 1:
+    player_class = Warrior()
+elif archetype_choice == 2:
+    player_class = Mage()
+elif archetype_choice == 3:
+    player_class = Bard()
+else:
+    player_class = Clerk()
 
 
-
-    
-
-
-
-    
-
+player = Player(player_name,player_class)
+print("Player:", player_name)
+print("Archetype:", player_class)
