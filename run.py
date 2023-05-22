@@ -119,9 +119,48 @@ def start_game():
              return False
         else:
             print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
+
+#first dungeon
+
+def blue_stone():
+    print('''The blue stone is hidden inside an underwater cave, in an Amazonian forest, you start swimming inside the lake, and soon you encounter a few dolphins.''')
+    choice = ""
+    game_over = False
+    while choice not in ["A", "B", "C"]:
+        choice = input("What will you do?\n A. Pretend you are just here for a nice relaxing dive and move forward\n B. Greet them and tell them what you searching for\n C. Ask them to help you in your journey to acquire the Blue Stone\n what is your choice?" ).upper()
+        if choice == "A":
+            print("You passed them, you found the cave and you enter it")
+        elif choice == "B":
+            print("They became hostile when they found out you want the stone. You die.")
+            game_over = True
+        elif choice == "C":
+            print("They helped you find the stone, and then they kill you to take it for themselves. You die")
+            game_over = True
+        else:
+            print("Invalid input. Please select one of 'A', 'B' or 'C'")
+    return not game_over
     
 
-if start_game():
-    print("Let the adventure begin!")
-else:
-    print("Maybe next time!")
+
+
+
+    
+def main():
+  
+  while True:
+  
+    if start_game():    
+        print("Let the adventure begin!")
+        if blue_stone():
+            print("Congratulations! You completed the game.")
+        else:
+            print("Game Over! Maybe next time!")
+    else:
+        print("Maybe next time!")
+
+    restart_choice = input("Do you want to play again? (y/n): ").lower()
+    if restart_choice != "y":
+        print("Thanks for playing! Goodbye.")
+        break  
+
+main()
