@@ -6,6 +6,7 @@ class Player():
     def __init__(self, name, archetype):
         self.name = name
         self.archetype = archetype
+
 class Warrior():
     def __init__(self):
         self.name = "Warrior"
@@ -120,48 +121,74 @@ def start_game():
         else:
             print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
 
-#first dungeon
+
+def player_choice(prompt, choices, outcomes):
+    print(prompt)
+    choice = ""  
+    #game_over = False
+    while choice not in choices:
+        choice = input("What will you do?\n{}\n".format(", ".join(choices))).upper()
+        if choice not in choices:
+            print("Invalid input. Please select one of {}".format(", ".join(choices)))
+    index = choices.index(choice)
+    print(outcomes[index][0])
+    return outcomes[index][1]
+
+
 
 
 def blue_stone():
-    print('''The blue stone is hidden inside an underwater cave, in an Amazonian forest, you start swimming inside the lake, and soon you encounter a few dolphins.''')
-    choice = ""
-    game_over = False
-    while choice not in ["A", "B", "C"]:
-        choice = input("What will you do?\n A. Pretend you are just here for a nice relaxing dive and move forward\n B. Greet them and tell them what you searching for\n C. Ask them to help you in your journey to acquire the Blue Stone\n what is your choice?" ).upper()
-        if choice == "A":
-            print("You passed them, you found the cave and you enter it")
-            return True
-        elif choice == "B":
-            print("They became hostile when they found out you want the stone. You die.")
-            return False
-        elif choice == "C":
-            print("They helped you find the stone, and then they kill you to take it for themselves. You die")
-            return False
-        else:
-            print("Invalid input. Please select one of 'A', 'B' or 'C'")
-    return not game_over
+    prompt = '''The blue stone is hidden inside an underwater cave, in an Amazonian forest. You start swimming inside the lake, and soon you encounter a few dolphins.
     
+    What will you do?
+    A. Pretend you are just here for a nice relaxing dive and move forward
+    B. Greet them and tell them what you are searching for
+    C. Ask them to help you in your journey to acquire the Blue Stone
+    Enter your choice: '''
+
+    choices = ["A", "B", "C"]
+    outcomes = [
+        ("You passed them, you found the cave and you enter it", True),
+        ("They became hostile when they found out you want the stone. You die.", False),
+        ("They helped you find the stone, and then they kill you to take it for themselves. You die.", False)
+    ]
+
+    return player_choice(prompt, choices, outcomes)
 
 
+def blue_stone_two():
+    prompt = '''Inside the cave, there is a water elemental that protects the Blue Stone. He asks you why you are trying to steal the Blue Stone.
+    
+    What will you do?
+    A. Kill the elemental and take the Blue Stone
+    B. Tell him that you are not stealing, you are helping Red to rescue Bart from the evil Skull
+    C. Tell him that you need that stone to save someone and you will give the stone back once you finish your quest
+    Enter your choice: '''
+
+    choices = ["A", "B", "C"]
+    outcomes = [
+        ("You die, the elemental was more powerful than you!", False),
+        ("The elemental agrees to help you, yeah he knows Bart very well!", True),
+        ("The elemental thinks you are lying to him, you fight for a while, but in the end, you die", False)
+    ]
+
+    return player_choice(prompt, choices, outcomes)
+
+    
 
 
     
 def main():
-    game_state = "start"
-    while game_state != "end":
-        if game_state == "start":
-            if start_game():
-                game_state = "blue_stone"
-            else:
-                game_state = "end"
-        elif game_state == "blue_stone":
-           if blue_stone():
-               game_state  == "blue_stone_two"
-           else:
-               game_state = "end"
+    start_game()
+    
+    if blue_stone():
+        if blue_stone_two():
+            print("The adventure continues...")
+        else:
+            print("Game Over.")
     else:
-        game_state = "end"
+        print("Game Over.")
+    
     restart_choice = input("Do you want to restart the game? (y/n): ").lower()
     if restart_choice == "y":
         main()
