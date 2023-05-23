@@ -125,7 +125,6 @@ def start_game():
 def player_choice(prompt, choices, outcomes):
     print(prompt)
     choice = ""  
-    #game_over = False
     while choice not in choices:
         choice = input("What will you do?\n{}\n".format(", ".join(choices))).upper()
         if choice not in choices:
@@ -174,6 +173,22 @@ def blue_stone_two():
 
     return player_choice(prompt, choices, outcomes)
 
+def blue_stone_three():
+    prompt = '''The elemental offers his help to save Bart.
+    
+    What do you say?
+    A. Yes, we need all the help we can get
+    B. No, You should guard this place, when we return with the stone, we don't want robbers to be here!
+    Enter your choice: '''
+
+    choices = ["A", "B", "C"]
+    outcomes = [
+        ("Elemental is now your guardian", True),
+        ("The elemental agrees, he will remain at his station", True)
+    ]
+
+    return player_choice(prompt, choices, outcomes)
+
     
 
 
@@ -181,18 +196,31 @@ def blue_stone_two():
 def main():
     start_game()
     
-    if blue_stone():
-        if blue_stone_two():
-            print("The adventure continues...")
-        else:
+    while True:
+        if not blue_stone():
             print("Game Over.")
-    else:
-        print("Game Over.")
-    
-    restart_choice = input("Do you want to restart the game? (y/n): ").lower()
-    if restart_choice == "y":
-        main()
-    else:
-        print("Thanks for playing! Goodbye.")
+            break
+
+        if not blue_stone_two():
+            print("Game Over.")
+            break
+
+        if not blue_stone_three():
+            print("Game Over.")
+            break
+
+        print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
+--------------------------------------------------------------------------------------------------------------------''')
+        print("Placeholder text")
+
+        restart_choice = input("Do you want to restart the game? (y/n): ").lower()
+        if restart_choice != "y":
+            print("Thanks for playing! Goodbye.")
+            break
 
 main()
+
+
+
+
+
