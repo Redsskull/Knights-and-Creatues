@@ -2,6 +2,16 @@ import termcolor
 
 #I'm going to start by defining the assets(object) the game will use.\
 
+"""
+TODO - deploy
+fix exception
+Dungeon 4 and contend with water elemental class
+end the game
+Docstrings and README
+add color and refine text
+
+"""
+
 class Player():
     def __init__(self, name, archetype):
         self.name = name
@@ -45,6 +55,10 @@ class Clerk():
     
     def __str__(self):
         return self.name
+    
+class PlayerDeathException(Exception):
+    def __init__(self, message):
+        self.message = message 
 
 """class WaterElemental():
     def __init__(self):
@@ -58,7 +72,7 @@ class Clerk():
 def start_game():
     print("In search for Bartholomew also known as 'Bart the claw cuddler'")
     print("Who will start this epic journey to find Bart and help him?\n")
-    player_name = input("Enter your name: ")
+    player_name = input("Enter your name:\n ")
     print("Choose your class")
     print('''1. Warrior
     ------
@@ -89,7 +103,7 @@ def start_game():
     if you pay me enough... I mean if you show me your great gratitude, I can go anywhere\n''')
 
 
-    archetype_choice = int(input("Pick a number to choose your class: "))
+    archetype_choice = int(input("Pick a number to choose your class:\n "))
     archetype = None
 
     if archetype_choice == 1:
@@ -113,7 +127,7 @@ def start_game():
 
     choice = ""
     while choice not in ["y", "n"]:
-        choice = input("Are you up for this challenge? (y/n): ").lower()
+        choice = input("Are you up for this challenge? (y/n):\n ").lower()
         if choice == "y":
              return player
         elif choice == "n":
@@ -137,8 +151,13 @@ def player_choice(prompt, choices, outcomes, player):
     if outcome is None:
         if index == 2:
             outcome = yellow_stone_three(player)
+            if index == 2:
+                raise PlayerDeathException("You Vanished!")
     else:
-        print(outcomes[index][0])    
+        print(outcomes[index][0]) 
+
+    if not outcome:
+        raise PlayerDeathException("Game Over!")   
 
     return outcomes
 
@@ -299,9 +318,7 @@ def yellow_stone_three(player):
     outcomes = [
         ("Success! you take the stone", True),
         ("Success! you take the stone", True),
-        ('''Rumour has it that Bart is still in prison. thousands of years have passed and you are still trying to decipher the text. You have vanished without a trace.
-         
-          Game Over! ''', False)
+        ("Rumour has it that Bart is still in prison. thousands of years have passed and you are still trying to decipher the text. You have vanished without a trace.", False)
     ]
 
     return player_choice(prompt, choices, outcomes, player)
@@ -311,38 +328,46 @@ def main():
     player = start_game()
     print("Player received in main:", player)
     
-    while True:
-        if not blue_stone(player):
-            print("Game Over.")
-            break
+    try:
+        while True:
+            if not blue_stone(player):
+                print("Game Over.")
+                return
 
-        if not blue_stone_two(player):
-            print("Game Over.")
-            break
+            if not blue_stone_two(player):
+                print("Game Over.")
+                return
 
-        if not blue_stone_three(player):
-            print("Game Over.")
-            break
+            if not blue_stone_three(player):
+                print("Game Over.")
+                return
 
-        print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
+            print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
 --------------------------------------------------------------------------------------------------------------------''')
-        if not yellow_stone(player):
-            print("Game Over")
-            break
+            if not yellow_stone(player):
+                print("Game Over")
+                return
 
-        if not yellow_stone_two(player):
-            print("Game Over")
-            break
-        
+            if not yellow_stone_two(player):
+                print("Game Over")
+                return
 
+            print('''Congratulations! you acquired the Red Stone, you can now create the portal to the void prison!
+Let's go!
 
+--------------------------------------------------------------------------------------------------------------------''')
 
-        restart_choice = input("Do you want to restart the game? (y/n): ").lower()
-        if restart_choice != "y":
-            print("Thanks for playing! Goodbye.")
-            break
+            restart_choice = input("Do you want to restart the game? (y/n):\n ").lower()
+            if restart_choice != "y":
+                print("Thanks for playing! Goodbye.")
+                return
+            
+    except PlayerDeathException as e:
+        print(e.message)
+        print("Game Over.")
 
 main()
+
 
 
 
