@@ -124,7 +124,7 @@ def start_game():
     
 
 
-def player_choice(prompt, choices, outcomes):
+def player_choice(prompt, choices, outcomes, player):
     print(prompt)
     choice = ""  
     while choice not in choices:
@@ -132,8 +132,15 @@ def player_choice(prompt, choices, outcomes):
         if choice not in choices:
             print("Invalid input. Please select one of {}".format(", ".join(choices)))
     index = choices.index(choice)
-    print(outcomes[index][0])
-    return outcomes[index][1]
+    outcome = outcomes[index][1]
+
+    if outcome is None:
+        if index == 2:
+            outcome = yellow_stone_three(player)
+    else:
+        print(outcomes[index][0])    
+
+    return outcomes
 
 
 
@@ -154,7 +161,7 @@ def blue_stone(player):
         ("They helped you find the stone, and then they kill you to take it for themselves. You die.", False)
     ]
 
-    return player_choice(prompt, choices, outcomes)
+    return player_choice(prompt, choices, outcomes, player)
 
 
 def blue_stone_two(player):
@@ -173,7 +180,7 @@ def blue_stone_two(player):
         ("The elemental thinks you are lying to him, you fight for a while, but in the end, you die", False)
     ]
 
-    return player_choice(prompt, choices, outcomes)
+    return player_choice(prompt, choices, outcomes, player)
 
 def blue_stone_three(player):
     prompt = '''The elemental offers his help to save Bart.
@@ -189,7 +196,7 @@ def blue_stone_three(player):
         ("The elemental agrees, he will remain at his station", True)
     ]
 
-    return player_choice(prompt, choices, outcomes)
+    return player_choice(prompt, choices, outcomes, player)
 
 def yellow_stone(player):
     prompt = '''After three days of walking in the desert, you finally reach the cave where the Yellow Stone is located!
@@ -231,7 +238,9 @@ def yellow_stone(player):
         print("Invalid player archetype.")
         return False
     
-    return player_choice(prompt, choices, outcomes)
+    return player_choice(prompt, choices, outcomes, player)
+
+
 
 def yellow_stone_two(player):
     prompt = ('''Inside the cave, you find the yellow stone, but there is shifting sand around the stone.
@@ -247,34 +256,36 @@ def yellow_stone_two(player):
         outcomes = [
             ("you die, you were wrong!.", False),
             ("you heroic leap and bypass the sand, you take the stone", True),
-            ("You see a rope, some places to climb, and some weird-looking text", True)
+            ("You see a rope, some places to climb, and some weird-looking text", None)
         ]
     elif isinstance(player.archetype, Mage):
         choices = ["A", "B", "C"]
         outcomes = [
             ("you die, you were wrong!.", False),
             ("you create a magical ground and walk on it, you take the stone.", True),
-            ("You see a rope, some places to climb, and some weird-looking text", True)
+            ("You see a rope, some places to climb, and some weird-looking text", None)
         ]
     elif isinstance(player.archetype, Bard):
         choices = ["A", "B", "C"]
         outcomes = [
             ("you die, you were wrong!.", False),
             ("you use your magic books to create a path that you can walk on, you take the stone", True),
-            ("You see a rope, some places to climb, and some weird-looking text", True)
+            ("You see a rope, some places to climb, and some weird-looking text", None)
         ]
     elif isinstance(player.archetype, Clerk):
         choices = ["A", "B", "C"]
         outcomes = [
             ("you die, you were wrong!.", False),
             ("you pray for levitation and your prayer is answered. you slowly fly towards the stone, you take the stone.", True),
-            ("You see a rope, some places to climb, and some weird-looking text", True)
+            ("You see a rope, some places to climb, and some weird-looking text", None)
         ]
     else:
         print("Invalid player archetype.")
         return False
+
     
-    return player_choice(prompt, choices, outcomes)
+    return player_choice(prompt, choices, outcomes, player)
+
 
 def yellow_stone_three(player):
     prompt =('''You see a rope, some places to climb, and some weird-looking text
@@ -288,13 +299,12 @@ def yellow_stone_three(player):
     outcomes = [
         ("Success! you take the stone", True),
         ("Success! you take the stone", True),
-        ("Rumour has it that Bart is still in prison. thousands of years have passed and you are still trying to decipher the text. You have vanished without a trace. ", False)
+        ('''Rumour has it that Bart is still in prison. thousands of years have passed and you are still trying to decipher the text. You have vanished without a trace.
+         
+          Game Over! ''', False)
     ]
 
-    return player_choice(prompt, choices, outcomes)
-
-    
-
+    return player_choice(prompt, choices, outcomes, player)
 
     
 def main():
@@ -304,28 +314,26 @@ def main():
     while True:
         if not blue_stone(player):
             print("Game Over.")
-            continue
+            break
 
         if not blue_stone_two(player):
             print("Game Over.")
-            continue
+            break
 
         if not blue_stone_three(player):
             print("Game Over.")
-            continue
+            break
 
         print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
 --------------------------------------------------------------------------------------------------------------------''')
         if not yellow_stone(player):
             print("Game Over")
-            continue
+            break
 
         if not yellow_stone_two(player):
             print("Game Over")
-            continue
-        if not yellow_stone_three(player):
-            print("Game Over")
-            continue
+            break
+        
 
 
 
