@@ -233,6 +233,66 @@ def yellow_stone(player):
     
     return player_choice(prompt, choices, outcomes)
 
+def yellow_stone_two(player):
+    prompt = ('''Inside the cave, you find the yellow stone, but there is shifting sand around the stone.
+
+    A. You believe you can reach the stone without getting swallowed by the sand
+    B. use your Class Ability to reach the stone
+    C. Check surroundings for clues that could help you
+    
+    Enter your choice: ''')
+
+    if isinstance(player.archetype, Warrior):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you die, you were wrong!.", False),
+            ("you heroic leap and bypass the sand, you take the stone", True),
+            ("You see a rope, some places to climb, and some weird-looking text", True)
+        ]
+    elif isinstance(player.archetype, Mage):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you die, you were wrong!.", False),
+            ("you create a magical ground and walk on it, you take the stone.", True),
+            ("You see a rope, some places to climb, and some weird-looking text", True)
+        ]
+    elif isinstance(player.archetype, Bard):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you die, you were wrong!.", False),
+            ("you use your magic books to create a path that you can walk on, you take the stone", True),
+            ("You see a rope, some places to climb, and some weird-looking text", True)
+        ]
+    elif isinstance(player.archetype, Clerk):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you die, you were wrong!.", False),
+            ("you pray for levitation and your prayer is answered. you slowly fly towards the stone, you take the stone.", True),
+            ("You see a rope, some places to climb, and some weird-looking text", True)
+        ]
+    else:
+        print("Invalid player archetype.")
+        return False
+    
+    return player_choice(prompt, choices, outcomes)
+
+def yellow_stone_three(player):
+    prompt =('''You see a rope, some places to climb, and some weird-looking text
+      
+      A.Try to climb the stones and jump near the stone
+      B. Use the rope, through at the yellow stone area, tie it on higher ground, and use it to reach the stone
+      C. Try to decipher the text
+      
+      Enter your choice:''')
+    choices = ["A", "B", "C"]
+    outcomes = [
+        ("Success! you take the stone", True),
+        ("Success! you take the stone", True),
+        ("Rumour has it that Bart is still in prison. thousands of years have passed and you are still trying to decipher the text. You have vanished without a trace. ", False)
+    ]
+
+    return player_choice(prompt, choices, outcomes)
+
     
 
 
@@ -244,21 +304,30 @@ def main():
     while True:
         if not blue_stone(player):
             print("Game Over.")
-            break
+            continue
 
         if not blue_stone_two(player):
             print("Game Over.")
-            break
+            continue
 
         if not blue_stone_three(player):
             print("Game Over.")
-            break
+            continue
 
         print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
 --------------------------------------------------------------------------------------------------------------------''')
         if not yellow_stone(player):
             print("Game Over")
-            break
+            continue
+
+        if not yellow_stone_two(player):
+            print("Game Over")
+            continue
+        if not yellow_stone_three(player):
+            print("Game Over")
+            continue
+
+
 
         restart_choice = input("Do you want to restart the game? (y/n): ").lower()
         if restart_choice != "y":
