@@ -84,6 +84,9 @@ Python libraries used
 ### Validator Testing 
 
 ## Development and Deployment
+The game was developed on VCode on a cloned Github respository.
+Code Institude provided a template to use with this project to allow Heroku to display our app.
+This template was used to make the repo, and late clone it. 
 
 ## Content
 
