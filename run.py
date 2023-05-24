@@ -46,12 +46,13 @@ class Clerk():
     def __str__(self):
         return self.name
 
-class WaterElemental():
+"""class WaterElemental():
     def __init__(self):
         self.name = WaterElemental
 
     def __str__(self):
         return self.name
+        """
         
 
 def start_game():
@@ -89,23 +90,23 @@ def start_game():
 
 
     archetype_choice = int(input("Pick a number to choose your class: "))
-    player_class = None
+    archetype = None
 
     if archetype_choice == 1:
-        player_class = Warrior()
+        archetype = Warrior()
     elif archetype_choice == 2:
-        player_class = Mage()
+        archetype = Mage()
     elif archetype_choice == 3:
-        player_class = Bard()
+        archetype = Bard()
     elif archetype_choice == 4:
-        player_class = Clerk()
+        archetype = Clerk()
     else:
         print("Please select a number between 1 - 4 to choose your class")
+    
 
 
-    player = Player(player_name,player_class)
-    print("Player:", player_name)
-    print("Archetype:", player_class)
+    player = Player(player_name, archetype.name)
+    player.archetype = archetype
 
     print('''Red needs your help to find his magical cat, Bartholomew, he was kidnaped by an evil enemy called Skull, he cannot do this alone, he needs your
     to rescue Bart and defeat his enemy, to do that, you need to find the 3 gemstones and combine them to open a portal to the Void Prison where Bart is kept.''')
@@ -114,12 +115,13 @@ def start_game():
     while choice not in ["y", "n"]:
         choice = input("Are you up for this challenge? (y/n): ").lower()
         if choice == "y":
-             return True
+             return player
         elif choice == "n":
              print("Bart is upset!")
              exit()
         else:
             print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
+    
 
 
 def player_choice(prompt, choices, outcomes):
@@ -136,7 +138,7 @@ def player_choice(prompt, choices, outcomes):
 
 
 
-def blue_stone():
+def blue_stone(player):
     prompt = '''The blue stone is hidden inside an underwater cave, in an Amazonian forest. You start swimming inside the lake, and soon you encounter a few dolphins.
     
     What will you do?
@@ -155,7 +157,7 @@ def blue_stone():
     return player_choice(prompt, choices, outcomes)
 
 
-def blue_stone_two():
+def blue_stone_two(player):
     prompt = '''Inside the cave, there is a water elemental that protects the Blue Stone. He asks you why you are trying to steal the Blue Stone.
     
     What will you do?
@@ -173,7 +175,7 @@ def blue_stone_two():
 
     return player_choice(prompt, choices, outcomes)
 
-def blue_stone_three():
+def blue_stone_three(player):
     prompt = '''The elemental offers his help to save Bart.
     
     What do you say?
@@ -189,29 +191,74 @@ def blue_stone_three():
 
     return player_choice(prompt, choices, outcomes)
 
+def yellow_stone(player):
+    prompt = '''After three days of walking in the desert, you finally reach the cave where the Yellow Stone is located!
+     At the entrance there are 2 scorpions. What do you do?
+       A. Fight them and enter the cave
+       B. Tell them your story, as you did with the Water Elemental
+       C. Bypass them using a distraction
+          Enter your choice: '''
+
+    if isinstance(player.archetype, Warrior):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("You fight and kill the scorpions, advancing further.", True),
+            ("You die, they don't believe your story.", False),
+            ("You create a noisy trap on the left side of the cave, hide on the right side, trigger the trap, and then when it is clear, you go in.", True)
+        ]
+    elif isinstance(player.archetype, Mage):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("You fight and kill the scorpions, advancing further.", True),
+            ("You die, they don't believe your story.", False),
+            ("You create a water cascade on the right side of the cave. The scorpions are thirsty and go inside. You go inside the cave.", True)
+        ]
+    elif isinstance(player.archetype, Bard):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("You sing a song that puts the scorpions to sleep, allowing you to advance further.", True),
+            ("You die, they don't believe your story.", False),
+            ("You tried to create a distraction but failed. You die.", False)
+        ]
+    elif isinstance(player.archetype, Clerk):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("You die, the scorpions become hostile when they found out you want the stone.", False),
+            ("You die, they don't believe your story.", False),
+            ("You say a prayer, a big light appears a few hundred meters away from the cave. The scorpions are going to check what happened. You go in.", True)
+        ]
+    else:
+        print("Invalid player archetype.")
+        return False
+    
+    return player_choice(prompt, choices, outcomes)
+
     
 
 
     
 def main():
-    start_game()
+    player = start_game()
+    print("Player received in main:", player)
     
     while True:
-        if not blue_stone():
+        if not blue_stone(player):
             print("Game Over.")
             break
 
-        if not blue_stone_two():
+        if not blue_stone_two(player):
             print("Game Over.")
             break
 
-        if not blue_stone_three():
+        if not blue_stone_three(player):
             print("Game Over.")
             break
 
         print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
 --------------------------------------------------------------------------------------------------------------------''')
-        print("Placeholder text")
+        if not yellow_stone(player):
+            print("Game Over")
+            break
 
         restart_choice = input("Do you want to restart the game? (y/n): ").lower()
         if restart_choice != "y":
