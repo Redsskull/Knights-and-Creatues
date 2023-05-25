@@ -1,13 +1,14 @@
 import termcolor
 
+from termcolor import cprint
+
 # I'm going to start by defining the assets(object) the game will use.\
 
 """
-TODO  - fix exception
-Dungeon 4 and contend with water elemental class
-end the game
+TODO  
 Docstrings and README
 add color and refine text
+conduct extensive testing and deploy 
 
 """
 
@@ -86,47 +87,58 @@ class WaterElemental():
 def start_game():
     print("In search for Bartholomew also known as 'Bart the claw cuddler'")
     print("Who will start this epic journey to find Bart and help him?\n")
-    player_name = input("Enter your name:\n ")
-    if player_name == "bart".lower():
+    while True:
+        player_name = input("Enter your name:\n ")
+        if len(player_name) < 1:
+            print("Please type in a name")
+            continue
+        else:
+            break
+
+    if player_name.lower() == "bart":
         print("Oh, looks like the writer was mistaken, no rescue needed. Goodbye!")
         exit()
     else:
         print("Choose your class")
-        print('''1. Warrior
-        ------
-        When I was young I enjoyed playing with sticks and stones, fighting and defeating all of my father's scarecrows, 
-        dreamed about becoming a powerful warrior that defeats his foes and now here I am, ready for my next challenge!\n''')
-        print('''2.Mage 
-        ------
-        Are you thirsty? sorry, my water is not drinkable!
-        Hungry? I can... cook... our enemies!
-        Travel from town to town in a blink of an eye? show me your money!\n''')
+        print("1. Warrior")
+        print("------")
+        print("When I was young I enjoyed playing with sticks and stones,\n" 
+              + "fighting and defeating all of my father's scarecrows,")
+        print("dreamed about becoming a powerful warrior\n "
+              +"that defeats his foes and now here I am, ready for my next challenge!\n")
 
-        print('''3.Bard 
-        ------
-        In a realm of Myst
-        Where the dreams come true,
-        There we are in search of Bartholomew
-        Also known as 'Bart the claw cuddler'
+        print("2. Mage")
+        print("------")
+        print("Are you thirsty? sorry, my water is not drinkable!")
+        print("Hungry? I can... cook... our enemies!")
+        print("Travel from town to town in a blink of an eye? show me your money!\n")
 
-        And I have no idea how we will rescue him
-        Deep in darkness is where we go
-        Fingers crossed is what we hope
-        Bart, here we come!\n''')
+        print("3. Bard")
+        print("------")
+        print("In a realm of Myst")
+        print("Where the dreams come true,")
+        print("There we are in search of Bartholomew")
+        print("Also known as 'Bart the claw cuddler'")
+        print("And I have no idea how we will rescue him")
+        print("Deep in darkness is where we go")
+        print("Fingers crossed is what we hope")
+        print("Bart, here we come!\n")
 
-        print('''4.Clerk 
-        -----
-        In this dark world, instead of using swords, shields, or knives, I prefer to use my hands... to pray and heal others, 
-        but also to unleash the holy power upon our enemies, I prefer to work with a group of misfits, but in the end, 
-        if you pay me enough... I mean if you show me your great gratitude, I can go anywhere\n''')
+        print("4. Clerk")
+        print("------")
+        print("In this dark world, instead of using swords, shields,\n"
+              +" or knives, I prefer to use my hands... to pray and heal others,")
+        print("but also to unleash the holy power upon our enemies,\n"
+              + "I prefer to work with a group of misfits, but in the end,\n")
+        print("if you pay me enough... "
+              +"I mean if you show me your great gratitude, I can go anywhere\n")
 
-        
         archetype = None
 
         while archetype is None:
             try:
                 archetype_choice = int(input("Pick a number to choose your class: "))
-                
+
                 if archetype_choice == 1:
                     archetype = Warrior()
                 elif archetype_choice == 2:
@@ -135,13 +147,19 @@ def start_game():
                     archetype = Bard()
                 elif archetype_choice == 4:
                     archetype = Clerk()
+                else:
+                    print("Please select a number between 1 - 4 to choose your class")
             except ValueError:
                 print("Please select a number between 1 - 4 to choose your class")
+
         player = Player(player_name, archetype.name)
         player.archetype = archetype
 
-        print('''Red needs your help to find his magical cat, Bartholomew, he was kidnaped by an evil enemy called Skull, he cannot do this alone, he needs your
-        to rescue Bart and defeat his enemy, to do that, you need to find the 3 gemstones and combine them to open a portal to the Void Prison where Bart is kept.''')
+        print("Red needs your help to find his magical cat,\n"
+              + "Bartholomew, he was kidnapped by an evil enemy called Skull,")
+        print("he cannot do this alone,\n" 
+              +"he needs your to rescue Bart and defeat his enemy,")
+        print("to do that, you need to find the 3 gemstones and combine them to open a portal to the Void Prison where Bart is kept.")
 
         choice = ""
         while choice not in ["y", "n"]:
@@ -153,6 +171,7 @@ def start_game():
                 exit()
             else:
                 print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
+
 
 
 def player_choice(prompt, choices, outcomes, player):
@@ -179,7 +198,7 @@ def player_choice(prompt, choices, outcomes, player):
             outcome = void_prison_two(player)
             
     else:
-        print(outcomes[index][0])
+        cprint(outcomes[index][0], "red")
 
     if not outcome:
         raise PlayerDeathException("Game Over!")
@@ -188,7 +207,7 @@ def player_choice(prompt, choices, outcomes, player):
 
 
 def blue_stone(player):
-    prompt = '''The blue stone is hidden inside an underwater cave, in an Amazonian forest. You start swimming inside the lake, and soon you encounter a few dolphins.
+    prompt = '''The blue stone is hidden inside an underwater cave, in an Amazonian forest.\n You start swimming inside the lake, and soon you encounter a few dolphins.
     
     What will you do?
     A. Pretend you are just here for a nice relaxing dive and move forward
@@ -207,19 +226,19 @@ def blue_stone(player):
 
 
 def blue_stone_two(player):
-    prompt = '''Inside the cave, there is a water elemental that protects the Blue Stone. He asks you why you are trying to steal the Blue Stone.
+    prompt = '''Inside the cave, there is a water elemental that protects the Blue Stone.\n He asks you why you are trying to steal the Blue Stone.
     
     What will you do?
     A. Kill the elemental and take the Blue Stone
-    B. Tell him that you are not stealing, you are helping Red to rescue Bart from the evil Skull
-    C. Tell him that you need that stone to save someone and you will give the stone back once you finish your quest
+    B. Tell him that you are not stealing, \nyou are helping Red to rescue Bart from the evil Skull
+    C. Tell him that you need that stone to save someone \nand you will give the stone back once you finish your quest
     Enter your choice: '''
 
     choices = ["A", "B", "C"]
     outcomes = [
         ("You die, the elemental was more powerful than you!", False),
-        ("The elemental agrees to help you, yeah he knows Bart very well!", True),
-        ("The elemental thinks you are lying to him, you fight for a while, but in the end, you die", False)
+        ("The elemental agrees to help you,\n yeah he knows Bart very well!", True),
+        ("The elemental thinks you are lying\nto him, you fight for a while, but in the end, you die", False)
     ]
 
     return player_choice(prompt, choices, outcomes, player)
@@ -243,7 +262,7 @@ def blue_stone_three(player):
 
 
 def yellow_stone(player):
-    prompt = '''After three days of walking in the desert, you finally reach the cave where the Yellow Stone is located!
+    prompt = '''After three days of walking in the desert,\n you finally reach the cave where the Yellow Stone is located!
      At the entrance there are 2 scorpions. What do you do?
        A. Fight them and enter the cave
        B. Tell them your story, as you did with the Water Elemental
@@ -255,19 +274,19 @@ def yellow_stone(player):
         outcomes = [
             ("You fight and kill the scorpions, advancing further.", True),
             ("You die, they don't believe your story.", False),
-            ("You create a noisy trap on the left side of the cave, hide on the right side, trigger the trap, and then when it is clear, you go in.", True)
+            ("You create a noisy trap on the left side of the cave,\n hide on the right side, trigger the trap, and then when it is clear, you go in.", True)
         ]
     elif isinstance(player.archetype, Mage):
         choices = ["A", "B", "C"]
         outcomes = [
             ("You fight and kill the scorpions, advancing further.", True),
             ("You die, they don't believe your story.", False),
-            ("You create a water cascade on the right side of the cave. The scorpions are thirsty and go inside. You go inside the cave.", True)
+            ("You create a water cascade on the right side of the cave.\n The scorpions are thirsty and go inside. You go inside the cave.", True)
         ]
     elif isinstance(player.archetype, Bard):
         choices = ["A", "B", "C"]
         outcomes = [
-            ("You sing a song that puts the scorpions to sleep, allowing you to advance further.", True),
+            ("You sing a song that puts the scorpions to sleep,\n allowing you to advance further.", True),
             ("You die, they don't believe your story.", False),
             ("You tried to create a distraction but failed. You die.", False)
         ]
@@ -276,7 +295,7 @@ def yellow_stone(player):
         outcomes = [
             ("You die, the scorpions become hostile when they found out you want the stone.", False),
             ("You die, they don't believe your story.", False),
-            ("You say a prayer, a big light appears a few hundred meters away from the cave. The scorpions are going to check what happened. You go in.", True)
+            ("You say a prayer, a big light appears a few hundred meters away from the cave.\n The scorpions are going to check what happened. You go in.", True)
         ]
     else:
         print("Invalid player archetype.")
@@ -305,21 +324,21 @@ def yellow_stone_two(player):
         choices = ["A", "B", "C"]
         outcomes = [
             ("you die, you were wrong!.", False),
-            ("you create a magical ground and walk on it, you take the stone.", True),
+            ("you create a magical ground and\n walk on it, you take the stone.", True),
             ("You see a rope, some places to climb, and some weird-looking text", None)
         ]
     elif isinstance(player.archetype, Bard):
         choices = ["A", "B", "C"]
         outcomes = [
             ("you die, you were wrong!.", False),
-            ("you use your magic books to create a path that you can walk on, you take the stone", True),
+            ("you use your magic books to create a \npath that you can walk on, you take the stone", True),
             ("You see a rope, some places to climb, and some weird-looking text", None)
         ]
     elif isinstance(player.archetype, Clerk):
         choices = ["A", "B", "C"]
         outcomes = [
             ("you die, you were wrong!.", False),
-            ("you pray for levitation and your prayer is answered. you slowly fly towards the stone, you take the stone.", True),
+            ("you pray for levitation and your prayer is answered.\n you slowly fly towards the stone, you take the stone.", True),
             ("You see a rope, some places to climb, and some weird-looking text", None)
         ]
     else:
@@ -342,7 +361,7 @@ def yellow_stone_three(player):
     outcomes = [
         ("Success! you take the stone", True),
         ("Success! you take the stone", True),
-        ("Rumour has it that Bart is still in prison. thousands of years have passed and you are still trying to decipher the text. You have vanished without a trace.", False)
+        ("Rumour has it that Bart is still in prison. \nthousands of years have passed and you are still trying to decipher the text. \nYou have vanished without a trace.", False)
     ]
 
     return player_choice(prompt, choices, outcomes, player)
@@ -357,28 +376,28 @@ def red_stone(player):
 
     choices = ["A", "B", "C"]
     outcomes = [
-        ("At the end of this tunnel you find an area full of lava with a few rocks that can be walked on, it was a close one, but you managed to go through without dying!", True),
+        ("At the end of this tunnel you find an area full of lava with a few rocks that can be walked on,\n it was a close one, but you managed to go through without dying!", True),
         ("At the end of this tunnel the ground is thin, you break it when you walk, fall into a pit, and die!", False),
-        ("At the end of this tunnel you reach a big hole, you try to climb on the rocks to bypass the hole but right at the end, one of the rocks crumbles and you fall into a bottomless pit! at least you'll forever love Bart..", False)
+        ("At the end of this tunnel you reach a big hole, you try to climb on the rocks to bypass the hole but right at the end,\n one of the rocks crumbles and you fall into a bottomless pit! at least you'll forever love Bart..", False)
     ]
 
     return player_choice(prompt, choices, outcomes, player)
 
 
 def red_stone_two(player):
-    prompt = '''After you dodge a few traps you find yourself inside the main area of the dungeon, in the middle, the red stone ungaurded.
+    prompt = '''After you dodge a few traps you find yourself inside the main area of the dungeon,\n in the middle, the red stone ungaurded.
     
     What will you do?
     A. You just go and take the stone
-    B. You assume its a trap, you through a few stones near the red stone and check if any trap is triggered
-    C. You know its a trap, you walk carefully, checking every corner for hidden traps or messages until you reach the Red Stone
+    B. You assume its a trap,\n you through a few stones near the red stone and check if any trap is triggered
+    C. You know its a trap, you walk carefully,\n checking every corner for hidden traps or messages until you reach the Red Stone
     Enter your choice: '''
 
     choices = ["A", "B", "C"]
     outcomes = [
         ("You die, you have no idea why!", False),
-        ("You took the stone, and suddenly a giant dog called Tara attacks and steals her stone for her evil master, Erik. Erik is known to hate Bart", False),
-        ("You were clever enough to assume that the trigger was under the Red Stone, Lucky you switch the red stone with another stone that was the same weight and you survive!.", True)
+        ("You took the stone, and suddenly a giant dog called Tara attacks and steals her stone for her evil master,\n Erik. Erik is known to hate Bart", False),
+        ("You were clever enough to assume that the trigger was under the Red Stone,\n Lucky you switch the red stone with another stone that was the same weight and you survive!.", True)
     ]
 
     return player_choice(prompt, choices, outcomes, player)
@@ -397,26 +416,26 @@ def void_prison(player):
     if isinstance(player.archetype, Warrior):
         choices = ["A", "B"]
         outcomes = [
-            ("you heroic leap and... it's not enough, the void draws your power, and you fall into the void. You die..", False),
-            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None)
+            ("you heroic leap and... it's not enough, the void draws your power,\n and you fall into the void. You die..", False),
+            ("you find another captive that tells you that you can kill the guards\n inside the void to get some magical orbs that will make you immune to void magic", None)
         ]
     elif isinstance(player.archetype, Mage):
         choices = ["A", "B"]
         outcomes = [
-            ("you create a magical ground and walk on it, sadly the void magic is too strong, the magical ground breaks and Bart falls into the void. You die..", False),
-            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None)
+            ("you create a magical ground and walk on it, sadly the void magic is too strong,\n the magical ground breaks and Bart falls into the void. You die..", False),
+            ("you find another captive that tells you that you can kill the guards inside the \n void to get some magical orbs that will make you immune to void magic", None)
         ]
     elif isinstance(player.archetype, Bard):
         choices = ["A", "B"]
         outcomes = [
-            ("you use your magic books to create a path that you can walk on, sadly the void magic is too strong, and the books lose their power. Bart and the books fall into the void. You die.", False),
-            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None)
+            ("you use your magic books to create a path that you can walk on, \nsadly the void magic is too strong, and the books lose their power. \nBart and the books fall into the void. You die.", False),
+            ("you find another captive that tells you that you can kill the guards \n inside the void to get some magical orbs that will\n make you immune to void magic", None)
         ]
     elif isinstance(player.archetype, Clerk):
         choices = ["A", "B"]
         outcomes = [
-            ("you prey for levitation and your prey is listened to, you slowly fly towards Bart, sadly the void magic is too strong, and you lose your flying ability and fall into the void. You die", False),
-            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None)
+            ("you prey for levitation and your prey is listened to, you slowly fly towards Bart, \nsadly the void magic is too strong,\n and you lose your flying ability and fall into the void. You die", False),
+            ("you find another captive that tells you that you can kill the guards \ninside the void to get some magical orbs that \nwill make you immune to void magic", None)
         ]
     else:
         print("Invalid player archetype.")
@@ -424,47 +443,68 @@ def void_prison(player):
     
     if player.has_water_elemental:
         choices.append("C")
-        outcomes.append(("the Water elemental creates a water bridge, the void is very strong and drains the power of the elemental, the water elemental sacrifices himself to keep the bridge up until Bart crosses it! Bart is saved!!!! as he dies, he tells you his name is Sammy, and thanks you for letting him save his friend. ", True))
+        outcomes.append(("the Water elemental creates a water bridge, \n the void is very strong and drains the power of the elemental,\n the water elemental sacrifices himself to keep the bridge up until Bart crosses it! Bart is saved!!!! as he dies, he tells you his name is Sammy, and thanks you for letting him save his friend. ", True))
 
     return player_choice(prompt, choices, outcomes, player)
 
 
 def void_prison_two(player):
 
-    prompt = '''you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic
-    A. Kill enemies and take those magical orbs
+    prompt = '''you find another captive that tells you that you can kill the guards\n inside the void to get some magical orbs\n that will make you immune to void magic\n
+                A. Kill enemies and take those magical orbs
                 B. Ignore what the captive said, search further.
                 '''
      
     if isinstance(player.archetype, Warrior):
         choices = ["A", "B"]
         outcomes = [
-            ("you do a heroic leap and you reach Bart, do a leap again with Bart on your back, Bart is FREE!", True),
-            ("B. you keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again.", False)
+            ("you do a heroic leap and you reach Bart, \ndo a leap again with Bart on your back, Bart is FREE!", True),
+            ("B. you keep searching for clues,\n but you will never find them, Bart will never go free! You are never heard from again.", False)
         ]
     elif isinstance(player.archetype, Mage):
         choices = ["A", "B"]
         outcomes = [
-            ("you create a magical ground, you stand on it, Bart walks on it and he is FREE!", True),
-            ("you keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again. ", False)
+            ("you create a magical ground,\n you stand on it, Bart walks on it and he is FREE!", True),
+            ("you keep searching for clues,\n but you will never find them, Bart will never go free! You are never heard from again. ", False)
         ]
     elif isinstance(player.archetype, Bard):
         choices = ["A", "B"]
         outcomes = [
-            ("you use your magic books to create a path that can walk on, you stand on it, Bart can walk on it as well, and he is now FREE!", True),
-            ("you keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again.", False)
+            ("you use your magic books to create a path that can walk on,\n you stand on it, Bart can walk on it as well, and he is now FREE!", True),
+            ("you keep searching for clues,\n but you will never find them, Bart will never go free! You are never heard from again.", False)
         ]
     elif isinstance(player.archetype, Clerk):
         choices = ["A", "B"]
         outcomes = [
-            ("you prey for levitation and your prey is listened to, you slowly fly towards Bart, take Bart in your hands, and fly back, Bart is FREE!", True),
-            ("cyou keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again.", False)
+            ("you prey for levitation and your prey is listened to,\n you slowly fly towards Bart, take Bart in your hands, and fly back, Bart is FREE!", True),
+            ("cyou keep searching for clues,\n but you will never find them, Bart will never go free! You are never heard from again.", False)
         ]
     else:
         print("Invalid player archetype.")
         return False
 
     return player_choice(prompt, choices, outcomes, player)
+
+def void_prison_three(player):
+    prompt = '''Bart is now free, but he wants to defeat Skull to make sure he will never kidnap anyone else.\n You, him, and Red go on to face Skull, what do you do?
+    
+   A. Fight Skull with everything you have!
+   B. Tell Bart we should not fight and we should survive to live another day!
+
+    Enter your choice: '''
+
+    choices = ["A", "B", "C"]
+    outcomes = [
+        ("After a few hours of fighting, you manage to kill Skull,\nall of you suffer a lot of injuries, but you will all survive, you go back home", True),
+        ("Bart disagrees and goes with Red to defeat Skull, they both die.\n A vengeful apparition of Sammy eats your soul one night. Congratulations. You're the worst hero ever", False)
+    ]
+
+    return player_choice(prompt, choices, outcomes, player)
+
+
+
+
+
 
 
 
@@ -475,59 +515,62 @@ def main():
         while True:
             if not blue_stone(player):
                 print("Game Over.")
-                return
+                continue
 
             if not blue_stone_two(player):
                 print("Game Over.")
-                return
+                continue
 
             if not blue_stone_three(player):
                 print("Game Over.")
-                return
+                continue
             if player.has_water_elemental:
-             print("The Water Elemental has joined the player!")
-            else:
-             print("The player does not have the Water Elemental.")
             
 
-            print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
---------------------------------------------------------------------------------------------------------------------''')
+             print('''Congratulations, you have acquired the Blue Stone! Two more to go! 
+---------------------------------------------------------------''')
             if not yellow_stone(player):
                 print("Game Over")
-                return
+                continue
 
             if not yellow_stone_two(player):
                 print("Game Over")
-                return
+                continue
 
-            print('''Congratulations! you acquired the Red Stone, you can now create the portal to the void prison!
-Let's go!
-
---------------------------------------------------------------------------------------------------------------------''')
+            print('''Congratulations! you acquired the Yellow Stone! one to go!
+-------------------------------------------------------------------''')
             if not red_stone(player):
                 print("Game Over")
-                return
+                continue
             
             if not red_stone_two(player):
                 print("Game Over")
-                return
-            print('''Congrats! you acquired the Red Stone, you can now create the portal to the void prison!
+                continue
+            print('''Congratulations you acquired the Red Stone,\n you can now create the portal to the void prison!
 Let's go!
---------------------------------------------------------------------------------------------------------------------''')
+-----------------------------------------------------------''')
             if not void_prison(player):
                 print("Game Over")
-                return
+                continue
+            if not void_prison_three(player):
+                print("Game Over")
+                continue
+            print(f"Congratulations {player.name}, you managed to save Bart from the evil Skull,\n Red is in your gratitude forever! Bart is also happy,\n he gives you a big claw cuddle and invites you to watch basketball together one day")
 
 
-            restart_choice = input(
-                "Do you want to restart the game? (y/n):\n ").lower()
+            restart_choice = input("Do you want to restart the game? (y/n):\n ").lower()
             if restart_choice != "y":
-                print("Thanks for playing! Goodbye.")
-                return
+                            print("Thanks for playing! Goodbye.")
+                            return
+            else:
+                main()
 
     except PlayerDeathException as e:
         print(e.message)
-        
-
-
+    restart_choice = input("Do you want to restart the game? (y/n):\n ").lower()
+    if restart_choice != "y":
+                   print("Thanks for playing! Goodbye.")
+                   return
+    else:
+        main()
 main()
