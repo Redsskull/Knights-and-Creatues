@@ -163,6 +163,8 @@ def player_choice(prompt, choices, outcomes, player):
     if outcome is None:
         if index == 2:
             outcome = yellow_stone_three(player)
+        elif index == 1:
+            outcome = void_prison_two(player)
             
     else:
         print(outcomes[index][0])
@@ -369,12 +371,92 @@ def red_stone_two(player):
 
     return player_choice(prompt, choices, outcomes, player)
 
+def void_prison(player):
+    prompt ='''After you created the portal, you went through and started to look for Bart!
+    Bart is inside a prison trapped inside an area with no entrance, just an empty void around it.
+
+    A. Use your your class ability.
+    B. Search for clues
+    C. (Available only if you decided to take the water elemental with you!) Water Elemental offers to help by creating a water bridge
+
+    Enter your choice:'''
+
+    if isinstance(player.archetype, Warrior):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you heroic leap and... it's not enough, the void draws your power, and you fall into the void. You die..", False),
+            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None),
+            ("the Water elemental creates a water bridge, the void is very strong and drains the power of the elemental, the water elemental sacrifices himself to keep the bridge up until Bart crosses it! Bart is saved!!!! as he dies, he tells you his name is Sammy, and thanks you for letting him save his friend. ", True)
+        ]
+    elif isinstance(player.archetype, Mage):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you create a magical ground and walk on it, sadly the void magic is too strong, the magical ground breaks and Bart falls into the void. You die..", False),
+            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None),
+            ("the Water elemental creates a water bridge, the void is very strong and drains the power of the elemental, the water elemental sacrifices himself to keep the bridge up until Bart crosses it! Bart is saved!!!! as he dies, he tells you his name is Sammy, and thanks you for letting him save his friend. ", True)
+        ]
+    elif isinstance(player.archetype, Bard):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you use your magic books to create a path that you can walk on, sadly the void magic is too strong, and the books lose their power. Bart and the books fall into the void. You die.", False),
+            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None),
+            ("the Water elemental creates a water bridge, the void is very strong and drains the power of the elemental, the water elemental sacrifices himself to keep the bridge up until Bart crosses it! Bart is saved!!!! as he dies, he tells you his name is Sammy, and thanks you for letting him save his friend. ", True)
+        ]
+    elif isinstance(player.archetype, Clerk):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you prey for levitation and your prey is listened to, you slowly fly towards Bart, sadly the void magic is too strong, and you lose your flying ability and fall into the void. You die", False),
+            ("you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic", None),
+            ("the Water elemental creates a water bridge, the void is very strong and drains the power of the elemental, the water elemental sacrifices himself to keep the bridge up until Bart crosses it! Bart is saved!!!! as he dies, he tells you his name is Sammy, and thanks you for letting him save his friend. ", True)
+        ]
+    else:
+        print("Invalid player archetype.")
+        return False
+
+    return player_choice(prompt, choices, outcomes, player)
+
+
+def void_prison_two(player):
+
+    prompt = '''A. Kill enemies and take those magical orbs
+                B. Ignore what the captive said, search further.
+                '''
+     
+    if isinstance(player.archetype, Warrior):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you do a heroic leap and you reach Bart, do a leap again with Bart on your back, Bart is FREE!", True),
+            ("B. you keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again.", False)
+        ]
+    elif isinstance(player.archetype, Mage):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you create a magical ground, you stand on it, Bart walks on it and he is FREE!", True),
+            ("you keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again. ", False)
+        ]
+    elif isinstance(player.archetype, Bard):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you use your magic books to create a path that can walk on, you stand on it, Bart can walk on it as well, and he is now FREE!", True),
+            ("you keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again.", False)
+        ]
+    elif isinstance(player.archetype, Clerk):
+        choices = ["A", "B", "C"]
+        outcomes = [
+            ("you prey for levitation and your prey is listened to, you slowly fly towards Bart, take Bart in your hands, and fly back, Bart is FREE!", True),
+            ("cyou keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again.", False)
+        ]
+    else:
+        print("Invalid player archetype.")
+        return False
+
+    return player_choice(prompt, choices, outcomes, player)
+
+
 
 
 def main():
     player = start_game()
-    print("Player received in main:", player)
-
     try:
         while True:
             if not blue_stone(player):
@@ -413,6 +495,9 @@ Let's go!
             print('''Congrats! you acquired the Red Stone, you can now create the portal to the void prison!
 Let's go!
 --------------------------------------------------------------------------------------------------------------------''')
+            if not void_prison(player):
+                print("Game Over")
+                return
 
 
             restart_choice = input(
