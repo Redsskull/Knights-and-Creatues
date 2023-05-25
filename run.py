@@ -1,6 +1,6 @@
 import termcolor
 
-#I'm going to start by defining the assets(object) the game will use.\
+# I'm going to start by defining the assets(object) the game will use.\
 
 """
 TODO - deploy
@@ -12,53 +12,61 @@ add color and refine text
 
 """
 
+
 class Player():
     def __init__(self, name, archetype):
         self.name = name
         self.archetype = archetype
 
+
 class Warrior():
     def __init__(self):
         self.name = "Warrior"
-        
+
     def heroic_lead(self):
         print("You lead a great distance with great strength!")
-    
+
     def __str__(self):
         return self.name
+
 
 class Mage():
     def __init__(self):
         self.name = "Mage"
-        
+
     def magical_ground(self):
         print("You create a magical ground to walk on")
 
     def __str__(self):
         return self.name
 
+
 class Bard():
     def __init__(self):
         self.name = "Bard"
-        
+
     def magical_books(self):
         print("You use magic books and sing songs")
-  
+
     def __str__(self):
         return self.name
+
+
 class Clerk():
     def __init__(self):
         self.name = "Clerk"
-        
+
     def holy_prayer(self):
         print("You pray to the Holy Light")
-    
+
     def __str__(self):
         return self.name
-    
+
+
 class PlayerDeathException(Exception):
     def __init__(self, message):
-        self.message = message 
+        self.message = message
+
 
 """class WaterElemental():
     def __init__(self):
@@ -67,7 +75,7 @@ class PlayerDeathException(Exception):
     def __str__(self):
         return self.name
         """
-        
+
 
 def start_game():
     print("In search for Bartholomew also known as 'Bart the claw cuddler'")
@@ -102,7 +110,6 @@ def start_game():
     but also to unleash the holy power upon our enemies, I prefer to work with a group of misfits, but in the end, 
     if you pay me enough... I mean if you show me your great gratitude, I can go anywhere\n''')
 
-
     archetype_choice = int(input("Pick a number to choose your class:\n "))
     archetype = None
 
@@ -116,8 +123,6 @@ def start_game():
         archetype = Clerk()
     else:
         print("Please select a number between 1 - 4 to choose your class")
-    
-
 
     player = Player(player_name, archetype.name)
     player.archetype = archetype
@@ -129,22 +134,23 @@ def start_game():
     while choice not in ["y", "n"]:
         choice = input("Are you up for this challenge? (y/n):\n ").lower()
         if choice == "y":
-             return player
+            return player
         elif choice == "n":
-             print("Bart is upset!")
-             exit()
+            print("Bart is upset!")
+            exit()
         else:
             print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
-    
 
 
 def player_choice(prompt, choices, outcomes, player):
     print(prompt)
-    choice = ""  
+    choice = ""
     while choice not in choices:
-        choice = input("What will you do?\n{}\n".format(", ".join(choices))).upper()
+        choice = input("What will you do?\n{}\n".format(
+            ", ".join(choices))).upper()
         if choice not in choices:
-            print("Invalid input. Please select one of {}".format(", ".join(choices)))
+            print("Invalid input. Please select one of {}".format(
+                ", ".join(choices)))
     index = choices.index(choice)
     outcome = outcomes[index][1]
 
@@ -154,14 +160,12 @@ def player_choice(prompt, choices, outcomes, player):
             if index == 2:
                 raise PlayerDeathException("You Vanished!")
     else:
-        print(outcomes[index][0]) 
+        print(outcomes[index][0])
 
     if not outcome:
-        raise PlayerDeathException("Game Over!")   
+        raise PlayerDeathException("Game Over!")
 
     return outcomes
-
-
 
 
 def blue_stone(player):
@@ -201,6 +205,7 @@ def blue_stone_two(player):
 
     return player_choice(prompt, choices, outcomes, player)
 
+
 def blue_stone_three(player):
     prompt = '''The elemental offers his help to save Bart.
     
@@ -216,6 +221,7 @@ def blue_stone_three(player):
     ]
 
     return player_choice(prompt, choices, outcomes, player)
+
 
 def yellow_stone(player):
     prompt = '''After three days of walking in the desert, you finally reach the cave where the Yellow Stone is located!
@@ -256,9 +262,8 @@ def yellow_stone(player):
     else:
         print("Invalid player archetype.")
         return False
-    
-    return player_choice(prompt, choices, outcomes, player)
 
+    return player_choice(prompt, choices, outcomes, player)
 
 
 def yellow_stone_two(player):
@@ -302,12 +307,11 @@ def yellow_stone_two(player):
         print("Invalid player archetype.")
         return False
 
-    
     return player_choice(prompt, choices, outcomes, player)
 
 
 def yellow_stone_three(player):
-    prompt =('''You see a rope, some places to climb, and some weird-looking text
+    prompt = ('''You see a rope, some places to climb, and some weird-looking text
       
       A.Try to climb the stones and jump near the stone
       B. Use the rope, through at the yellow stone area, tie it on higher ground, and use it to reach the stone
@@ -323,11 +327,11 @@ def yellow_stone_three(player):
 
     return player_choice(prompt, choices, outcomes, player)
 
-    
+
 def main():
     player = start_game()
     print("Player received in main:", player)
-    
+
     try:
         while True:
             if not blue_stone(player):
@@ -357,19 +361,15 @@ Let's go!
 
 --------------------------------------------------------------------------------------------------------------------''')
 
-            restart_choice = input("Do you want to restart the game? (y/n):\n ").lower()
+            restart_choice = input(
+                "Do you want to restart the game? (y/n):\n ").lower()
             if restart_choice != "y":
                 print("Thanks for playing! Goodbye.")
                 return
-            
+
     except PlayerDeathException as e:
         print(e.message)
         print("Game Over.")
 
+
 main()
-
-
-
-
-
-
