@@ -113,20 +113,23 @@ def start_game():
         but also to unleash the holy power upon our enemies, I prefer to work with a group of misfits, but in the end, 
         if you pay me enough... I mean if you show me your great gratitude, I can go anywhere\n''')
 
-        archetype_choice = int(input("Pick a number to choose your class:\n "))
+        
         archetype = None
 
-        if archetype_choice == 1:
-            archetype = Warrior()
-        elif archetype_choice == 2:
-            archetype = Mage()
-        elif archetype_choice == 3:
-            archetype = Bard()
-        elif archetype_choice == 4:
-            archetype = Clerk()
-        else:
-            print("Please select a number between 1 - 4 to choose your class")
-
+        while archetype is None:
+            try:
+                archetype_choice = int(input("Pick a number to choose your class: "))
+                
+                if archetype_choice == 1:
+                    archetype = Warrior()
+                elif archetype_choice == 2:
+                    archetype = Mage()
+                elif archetype_choice == 3:
+                    archetype = Bard()
+                elif archetype_choice == 4:
+                    archetype = Clerk()
+            except ValueError:
+                print("Please select a number between 1 - 4 to choose your class")
         player = Player(player_name, archetype.name)
         player.archetype = archetype
 
@@ -160,8 +163,7 @@ def player_choice(prompt, choices, outcomes, player):
     if outcome is None:
         if index == 2:
             outcome = yellow_stone_three(player)
-            if index == 2:
-                raise PlayerDeathException("You Vanished!")
+            
     else:
         print(outcomes[index][0])
 
@@ -314,6 +316,7 @@ def yellow_stone_two(player):
 
 
 def yellow_stone_three(player):
+
     prompt = ('''You see a rope, some places to climb, and some weird-looking text
       
       A.Try to climb the stones and jump near the stone
@@ -329,6 +332,43 @@ def yellow_stone_three(player):
     ]
 
     return player_choice(prompt, choices, outcomes, player)
+
+def red_stone(player):
+    prompt = '''You enter the cave that is at a bottom of a volcano where the Red Stone is safely guarded. there are 3 tunnels in front of you
+    
+    A. Left
+    B. Middle
+    C. Right
+    Which one will you take?: '''
+
+    choices = ["A", "B", "C"]
+    outcomes = [
+        ("At the end of this tunnel you find an area full of lava with a few rocks that can be walked on, it was a close one, but you managed to go through without dying!", True),
+        ("At the end of this tunnel the ground is thin, you break it when you walk, fall into a pit, and die!", False),
+        ("At the end of this tunnel you reach a big hole, you try to climb on the rocks to bypass the hole but right at the end, one of the rocks crumbles and you fall into a bottomless pit! at least you'll forever love Bart..", False)
+    ]
+
+    return player_choice(prompt, choices, outcomes, player)
+
+
+def red_stone_two(player):
+    prompt = '''After you dodge a few traps you find yourself inside the main area of the dungeon, in the middle, the red stone ungaurded.
+    
+    What will you do?
+    A. You just go and take the stone
+    B. You assume its a trap, you through a few stones near the red stone and check if any trap is triggered
+    C. You know its a trap, you walk carefully, checking every corner for hidden traps or messages until you reach the Red Stone
+    Enter your choice: '''
+
+    choices = ["A", "B", "C"]
+    outcomes = [
+        ("You die, you have no idea why!", False),
+        ("You took the stone, and suddenly a giant dog called Tara attacks and steals her stone for her evil master, Erik. Erik is known to hate Bart", False),
+        ("You were clever enough to assume that the trigger was under the Red Stone, Lucky you switch the red stone with another stone that was the same weight and you survive!.", True)
+    ]
+
+    return player_choice(prompt, choices, outcomes, player)
+
 
 
 def main():
@@ -363,6 +403,17 @@ def main():
 Let's go!
 
 --------------------------------------------------------------------------------------------------------------------''')
+            if not red_stone(player):
+                print("Game Over")
+                return
+            
+            if not red_stone_two(player):
+                print("Game Over")
+                return
+            print('''Congrats! you acquired the Red Stone, you can now create the portal to the void prison!
+Let's go!
+--------------------------------------------------------------------------------------------------------------------''')
+
 
             restart_choice = input(
                 "Do you want to restart the game? (y/n):\n ").lower()
@@ -372,7 +423,7 @@ Let's go!
 
     except PlayerDeathException as e:
         print(e.message)
-        print("Game Over.")
+        
 
 
 main()
