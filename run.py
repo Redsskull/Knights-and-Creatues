@@ -4,15 +4,9 @@ from termcolor import cprint
 
 # defining the assets(objects) the game will use.
 
-"""
-TODO  
-README
-conduct extensive testing and deploy 
-
-"""
-
 
 class Player():
+
     def __init__(self, name, archetype):
         self.name = name
         self.archetype = archetype
@@ -85,14 +79,19 @@ class WaterElemental():
 
 def start_game():
     """
-    This function runs as soon as the main function is called. 
-    it will take the users name, his class(archetype) and assign it all to the Player class.
-    the variable player is created with player_name and player_archetype and returned here.
-    it of course has text to tell a story, and an easter egg if the player name is Bart.
+    This function runs as soon as the main function is called.
+    it will take the users name, his class(archetype) and assign
+    it all to the Player class.
+    the variable player is created with player_name and player_
+    archetype and returned here.
+    it of course has text to tell a story, and an easter
+    egg if the player name is Bart.
     the function confirms proper input and has an exception.
     """
-    cprint("In search for Bartholomew also known as 'Bart the claw cuddler'", "blue")
-    cprint("Who will start this epic journey to find Bart and help him?\n", "blue")
+    cprint("In search for Bartholomew also known " + 
+           "as 'Bart the claw cuddler'", "blue")
+    cprint("Who will start this epic journey to find Bart and help him?\n",
+           "blue")
     while True:
         player_name = input("Enter your name:\n ")
         if len(player_name) < 1:
@@ -103,7 +102,9 @@ def start_game():
 
     if player_name.lower() == "bart":
         cprint(
-            "Oh, looks like the writer was mistaken, \nno rescue needed. Goodbye!", "purple")
+            "Oh, looks like the writer was mistaken, no rescue needed. " +
+            "Goodbye!",
+            "blue")
         exit()
     else:
         cprint("Choose your class", "green")
@@ -140,8 +141,8 @@ def start_game():
               "to pray and heal others,")
         print("but also to unleash the holy power upon our enemies,"
               + "I prefer to work with a group of misfits, but in the end,")
-        print("if you pay me enough... "
-              + "I mean if you show me your great gratitude, I can go anywhere")
+        print("if you pay me enough... " +
+              "I mean if you show me your great gratitude, I can go anywhere")
 
         archetype = None
 
@@ -159,9 +160,11 @@ def start_game():
                 elif archetype_choice == 4:
                     archetype = Clerk()
                 else:
-                    print("Please select a number between 1 - 4 to choose your class")
+                    print("Please select a number" +
+                          "between 1 - 4 to choose your class")
             except ValueError:
-                print("Please select a number between 1 - 4 to choose your class")
+                print("Please select a number " +
+                      "between 1 - 4 to choose your class")
 
         player = Player(player_name, archetype.name)
         player.archetype = archetype
@@ -172,7 +175,7 @@ def start_game():
         cprint("he cannot do this alone."
                + "he needs your to rescue Bart and defeat his enemy.", "blue")
         cprint('''to do that, you need to find the 3
-                  gemstones and combine them to open a portal 
+                  gemstones and combine them to open a portal
                   to the Void Prison where Bart is kept.''', "blue")
 
         choice = ""
@@ -190,9 +193,11 @@ def start_game():
 def player_choice(prompt, choices, outcomes, player):
     """
     This function is the heart of the games logic.
-    all functions feed the prompt(which is the story teller), the choices avaialable to the player 
+    all functions feed the prompt(which is the story teller),
+    the choices avaialable to the player
     and the outcomes to this functions.
-    on certain unqiue scenarios, this function also calls other special story functions to get the outcome
+    on certain unqiue scenarios, this function also
+    calls other special story functions to get the outcome
     for the player.
     """
     cprint(prompt, "blue")
@@ -231,14 +236,16 @@ def player_choice(prompt, choices, outcomes, player):
 def blue_stone(player):
     """
     This is the first dungeon function.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function.
     """
     prompt = '''The blue stone is hidden inside an underwater cave,
                 in an Amazonian forest.
-                You start swimming inside the lake, and soon you encounter a few dolphins.
-    
+                You start swimming inside the lake,
+                and soon you encounter a few dolphins.
+
     What will you do?
     A. Pretend you are just here for a nice relaxing dive and move forward
     B. Greet them and tell them what you are searching for
@@ -260,7 +267,8 @@ def blue_stone(player):
 def blue_stone_two(player):
     """
     This is the first dungeon function, part two.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
     """
@@ -268,10 +276,10 @@ def blue_stone_two(player):
     prompt = '''Inside the cave, there is a water elemental
                 that protects the Blue Stone.
                 He asks you why you are trying to steal the Blue Stone.
-    
+
     What will you do?
     A. Kill the elemental and take the Blue Stone
-    B. Tell him that you are not stealing,y
+    B. Tell him that you are not stealing,
        you are helping Red to rescue Bart from the evil Skull
     C. Tell him that you need that stone to save someone
        and you will give the stone back once you finish your quest
@@ -292,14 +300,17 @@ def blue_stone_two(player):
 def blue_stone_three(player):
     """
     This is the first dungeon function, part 3.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation, and has
+    different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
-    This is the first function that has a None outcome. this is so the player choice function can determine the outcome  
-    from a seperate function. This function also will determine if the elemental class is used for the player or not. 
+    This is the first function that has a None outcome.
+    this is so the player choice function can determine the outcome
+    from a seperate function. This function also will
+    determine if the elemental class is used for the player or not.
     """
     prompt = '''The elemental offers his help to save Bart.
-    
+
     What do you say?
     A. Yes, we need all the help we can get
     B. No, You should guard this place
@@ -318,10 +329,11 @@ def blue_stone_three(player):
 def yellow_stone(player):
     """
     This is the second dungeon function.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
-    this function has different ioutcomes depending on the players class. 
+    this function has different ioutcomes depending on the players class.
     """
     prompt = '''After three days of walking in the desert,
                 you finally reach the cave where the Yellow Stone is located!
@@ -378,20 +390,22 @@ def yellow_stone(player):
 def yellow_stone_two(player):
     """
     This is the second dungeon function, part two.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
-    this function also has the None outcome. player choice will call a new function
+    this function also has the None outcome.
+    player choice will call a new function
     to present the player with a new scenario.
     """
     prompt = ('''Inside the cave, you find the yellow stone,
                  but there is shifting sand around the stone.
 
-    A. You believe you can reach the 
+    A. You believe you can reach the
        stone without getting swallowed by the sand
     B. use your Class Ability to reach the stone
     C. Check surroundings for clues that could help you
-    
+
     Enter your choice: ''')
 
     if isinstance(player.archetype, Warrior):
@@ -439,20 +453,22 @@ def yellow_stone_two(player):
 def yellow_stone_three(player):
     """
     This is the secod dungeon function, part 3.
-    this function is only called by the player choice function in unique situation.
-    player is presented with a situation, and has different choices in how to handle it.
+    this function is only called by the player choice
+    function in unique situation.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
     """
 
     prompt = ('''You see a rope, some places to climb,
                  and some weird-looking text
-      
+
       A.Try to climb the stones and jump near the stone
       B. Use the rope, through at the yellow stone area,
          tie it on higher ground, and use it to reach the stone
       C. Try to decipher the text
-      
+
       Enter your choice:''')
     choices = ["A", "B", "C"]
     outcomes = [
@@ -470,14 +486,15 @@ def yellow_stone_three(player):
 def red_stone(player):
     """
     This is the third dungeon function.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
     """
     prompt = '''You enter the cave that is at a bottom of a volcano
                 where the Red Stone is safely guarded.
                 there are 3 tunnels in front of you
-    
+
     A. Left
     B. Middle
     C. Right
@@ -492,7 +509,8 @@ def red_stone(player):
         ("At the end of this tunnel the ground is thin," +
          "you break it when you walk, fall into a pit, and die!", False),
         ("At the end of this tunnel you reach a big hole," +
-         " you try to climb on the rocks to bypass the hole but right at the end," +
+         " you try to climb on the rocks to bypass" +
+         " the hole but right at the end," +
          " one of the rocks crumbles and you fall into a bottomless pit!" +
          " at least you'll forever love Bart..", False)
     ]
@@ -503,21 +521,22 @@ def red_stone(player):
 def red_stone_two(player):
     """
     This is the third dungeon function, part two.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
     """
     prompt = '''After you dodge a few traps you find yourself
                 inside the main area of the dungeon,
                  in the middle, the red stone ungaurded.
-    
+
     What will you do?
     A. You just go and take the stone
     B. You assume its a trap,
        you through a few stones near the
        red stone and check if any trap is triggered
     C. You know its a trap, you walk carefully,
-       checking every corner for hidden traps  
+       checking every corner for hidden traps
        or messages until you reach the Red Stone
     Enter your choice: '''
 
@@ -539,14 +558,16 @@ def red_stone_two(player):
 def void_prison(player):
     """
     This is the final dungeon function.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
     None is present here again.
-    this function also has a unique story part that appends a chouce to the list of tuples 
+    this function also has a unique story
+    part that appends a chouce to the list of tuples
     if the water elemental method is true.
     """
-    prompt = '''After you created the portal, 
+    prompt = '''After you created the portal,
     you went through and started to look for Bart!
     Bart is inside a prison trapped inside an area with no entrance,
     just an empty void around it.
@@ -554,7 +575,8 @@ def void_prison(player):
     A. Use your your class ability.
     B. Search for clues'''
     if player.has_water_elemental:
-        prompt += "\n     C. Use the Water Elemental's power to create a water bridge."
+        prompt += '''\nC. Use the Water Elemental's 
+    power to create a water bridge.'''
 
     prompt += "\nEnter your choice:"
 
@@ -574,7 +596,8 @@ def void_prison(player):
         outcomes = [
             ("you create a magical ground and walk" +
              "on it, sadly the void magic is too strong," +
-             "the magical ground breaks and Bart falls into the void. You die..", False),
+             "the magical ground breaks and Bart " +
+             "falls into the void. You die..", False),
             ("you find another captive that tells you" +
              " that you can kill the guards inside the " +
              "void to get some magical orbs that " +
@@ -617,9 +640,11 @@ def void_prison(player):
                          "the void is very strong and drains" +
                          "the power of the elemental," +
                          "the water elemental sacrifices himself to keep " +
-                         "the bridge up until Bart crosses it! Bart is saved!!!! " +
+                         "the bridge up until" +
+                         "Bart crosses it! Bart is saved!!!! " +
                          "as he dies, he tells you his name is Sammy, " +
-                         "and thanks you for letting him save his friend. ", True))
+                         "and thanks you for letting " +
+                         "him save his friend. ", True))
 
     return player_choice(prompt, choices, outcomes, player)
 
@@ -627,18 +652,19 @@ def void_prison(player):
 def void_prison_two(player):
     """
     This is the final dungeon function, part two.
-    player is presented with a situation, and has different choices in how to handle it.
+    player is presented with a situation,
+    and has different choices in how to handle it.
     True outcome keeps the player alive, False will kill him.
     returns parameters to the players choice function
     returns different outcome based on class(archetype)
     """
 
-    prompt = '''you find another captive that tells 
+    prompt = '''you find another captive that tells
                 you that you can kill the guards
                 inside the void to get some magical orbs
                 that will make you immune to void magic
-                
-                
+
+
             A. Kill enemies and take those magical orbs
             B. Ignore what the captive said, search further.
                 '''
@@ -692,12 +718,12 @@ def void_prison_three(player):
     """
     Final dungeon
     """
-    prompt = '''Bart is now free, but he wants to defeat Skull 
+    prompt = '''Bart is now free, but he wants to defeat Skull
     to make sure he will never kidnap anyone else.
     You, him, and Red go on to face Skull, what do you do?
-    
+
       A. Fight Skull with everything you have!
-      B. Tell Bart we should not fight and 
+      B. Tell Bart we should not fight and
          we should survive to live another day!
 
     Enter your choice: '''
@@ -719,7 +745,8 @@ def main():
     """
     Runs the main logic of the game.
     to avoid endless nesting, it has a if not logc, based on a while True loop.
-    True means the player is still alive. it prings some story from dunegeon to dungeon
+    True means the player is still alive.
+    it prings some story from dunegeon to dungeon
     and provides the player with a restart option that will run main() again.
     also has the player death exception.
     """
@@ -738,7 +765,8 @@ def main():
                 print("Game Over.")
                 continue
 
-            cprint('''Congratulations, you have acquired the Blue Stone! Two more to go! 
+            cprint('''Congratulations, you have acquired
+                      the Blue Stone! Two more to go!
 ---------------------------------------------------------------''', "green")
             if not yellow_stone(player):
                 print("Game Over")
@@ -748,8 +776,9 @@ def main():
                 print("Game Over")
                 continue
 
-            cprint('''Congratulations! you acquired the Yellow Stone! one to go!
--------------------------------------------------------------------''', "green")
+            cprint('''Congratulations! you acquired
+                      the Yellow Stone! one to go!
+------------------------------------------------------------------''', "green")
             if not red_stone(player):
                 print("Game Over")
                 continue
@@ -767,28 +796,39 @@ def main():
             if not void_prison_three(player):
                 print("Game Over")
                 continue
-            print(f"Congratulations {player.name}, you managed to save Bart from the evil Skull," +
+            print(f"Congratulations {player.name}, you managed to " +
+                  "save Bart from the evil Skull," +
                   "Red is in your gratitude forever! Bart is also happy," +
                   "he gives you a big claw cuddle and invites " +
                   "you to watch basketball together one day", "green")
 
-            restart_choice = input(
-                "Do you want to restart the game? (y/n):\n ").lower()
-            if restart_choice != "y":
-                print("Thanks for playing! Goodbye.")
-                return
-            else:
-                main()
+            restart_choice = ""
+            while restart_choice not in ["y", "n"]:
+                restart_choice = input(
+                    "Do you want to restart the game? (y/n):\n ").lower()
+                if restart_choice =="y":
+                    main()
+                elif restart_choice == "n":
+                    print("Thank you for playing my game, Goodbye!")
+                    return
+                else:
+                    print("Invalid input. Please enter " +
+                          " 'y' for Yes or 'n' for No.")
 
     except PlayerDeathException as e:
         print(e.message)
-    restart_choice = input(
-        "Do you want to restart the game? (y/n):\n ").lower()
-    if restart_choice != "y":
-        print("Thanks for playing! Goodbye.")
-        return
-    else:
-        main()
+
+    restart_choice = ""
+    while restart_choice not in ["y", "n"]:
+        restart_choice = input(
+            "Do you want to restart the game? (y/n):\n ").lower()
+        if restart_choice == "y":
+            main()
+        elif restart_choice == "n":
+            print("Thank you for playing my game, Goodbye!")
+            return
+        else:
+            print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
 
 
 main()
