@@ -1,0 +1,220 @@
+In search for Bartholomew also known as 'Bart the claw cuddler'
+
+Who will start this epic journey to find Bart and help him?
+--------------------------------------------------------------------------------------------------------------------
+Choose a class:
+
+Warrior
+------
+When I was young I enjoyed playing with sticks and stones, fighting and defeating all of my father's scarecrows, 
+dreamed about becoming a powerful warrior that defeats his foes and now here I am, ready for my next challenge!
+------
+
+
+Mage 
+------
+Are you thirsty? sorry, my water is not drinkable!
+Hungry? I can... cook... our enemies!
+Travel from town to town in a blink of an eye? show me your money!
+------
+
+
+Bard 
+------
+In a realm of Myst
+Where the dreams come true,
+There we are in search of Bartholomew
+Also known as 'Bart the claw cuddler'
+
+And I have no idea how we will rescue him
+Deep in darkness is where we go
+Fingers crossed is what we hope
+Bart, here we come!
+--------
+
+
+Clerk 
+-----
+In this dark world, instead of using swords, shields, or knives, I prefer to use my hands... to pray and heal others, 
+but also to unleash the holy power upon our enemies, I prefer to work with a group of misfits, but in the end, 
+if you pay me enough... I mean if you show me your great gratitude, I can go anywhere
+-----
+
+--------------------------------------------------------------------------------------------------------------------
+Choose a name: Player_Name_Here
+
+--------------------------------------------------------------------------------------------------------------------
+Description: Red needs your help to find his magical cat, Bartholomew, he was kidnaped by an evil enemy called Skull, he cannot do this alone, he needs PLAYER_NAME_HERE 
+to rescue Bart and defeat his enemy, to do that, you need to find the 3 gemstones and combine them to open a portal to the Void Prison where Bart is kept.
+are you up for this challenge?
+
+Yes -> Start Game
+No -> "Please don't go. Bart needs you, he looks up to you."
+--------------------------------------------------------------------------------------------------------------------
+
+Dungeon One: Blue Stone
+Stage 1
+-------
+The blue stone is hidden inside an underwater cave, in an Amazonian forest, you start swimming inside the lake, and soon you encounter a few dolphins.
+what do you do?
+A. Pretend you are just here for a nice relaxing dive and move forward
+B. Greet them and tell them what you searching for
+C. Ask them to help you in your journey to acquire the Blue Stone
+
+Choice Result
+A. You passed them, you found the cave and you enter it
+B. They kill you.  they became hostile when they found out you want the stone. You die.
+C. They helped you find the stone, and then they kill you to take it for themselves. You die.
+
+Stage 2
+-------
+Inside the cave, there is a water elemental that protects the Blue Stone, he asks you why are you trying to steal the Blue Stone.
+A. Kill the elemental and take the Blue Stone
+B. Tell him that you are not stealing, you are helping Red to rescue Bart from the evil Skull
+C. Tell him that you need that stone to save someone and you will give the stone back once you finish your quest
+
+Choice Result
+A. You die, the elemental was more powerful than you!
+B. The elemental agrees to help you, yeah he knows Bart very well!
+C. The elemental thinks you are lying to him, you fight for a while, but in the end, you die
+
+Stage 2.1
+--------
+The elemental offers his help to save Bart, what do you say?
+A. Yes, we need all the help we can get
+B. No, You should guard this place, when we return with the stone, we don't want robbers to be here!
+
+Choice Result
+A. Elemental is now your guardian
+B. The elemental agrees, he will remain at his station
+
+Congratlations you have the Blue Stone, two more to go! 
+--------------------------------------------------------------------------------------------------------------------
+
+Dungeon Two: Yellow Stone
+Stage 1
+-------
+After three days of walking in the desert, you finally reach the cave where the Yellow Stone is located!
+At the entrance there are 2 scorpions, what do you do?
+A. Fight them and enter the cave
+B. Tell them your story, as you did with the Water Elemental
+C. Bypass them using a distraction
+
+Choice Result
+A.
+if class == warrior || mage -> you fight and kill them, advance further
+if class == bard -> you sing a song that puts them to sleep, advance further
+if class == clerk -> you die
+
+B. You die, they don't believe you
+C. 
+if class == warrior -> create a noisy trap on the left side of the cave, you hide on the right side, trigger the trap, and then when it is clear you go in
+if class == mage -> you create a water cascade on the right side of the cave, the scorpions are thirsty they go in, and you go inside the cave
+if class == bard -> you tried to create a distraction but you failed, you die
+if class == clerk -> you say a prayer, a big light appears a few hundred meters away from the cave, the scorpions are going to check what happened, you go in
+
+Stage 2
+-------
+Inside the cave, you find the yellow stone, but there is shifting sand around the stone, what do you do?
+A. You believe you can reach the stone without getting swallowed by the sand
+B. use your _CLASS_ABILITY_HERE_ to reach the stone
+C. Check surroundings for clues that could help you
+
+Choice Result
+A. you die, you were wrong!
+B. 
+if class == warrior -> you heroic leap and bypass the sand, you take the stone
+if class == mage -> you create a magical ground and walk on it, you take the stone
+if class == bard -> you use your magic books to create a path that you can walk on, you take the stone
+if class = clerk -> you pray for levitation and your prayer is answered. you slowly fly towards the stone, you take the stone
+
+C. You see a rope, some places to climb, and some weird-looking text
+
+Stage C.1
+A.Try to climb the stones and jump near the stone
+B. Use the rope, through at the yellow stone area, tie it on higher ground, and use it to reach the stone
+C. Try to decipher the text
+
+Choice Result
+A. Success! you take the stone
+B. Success! you take the stone
+C. Rumour has it that Bart is still in prison. thousands of years have passed and you are still trying to decipher the text. You have vanished without a trace. 
+
+--------------------------------------------------------------------------------------------------------------------
+
+Dungeon Three: Red Stone
+Stage 1
+-------
+You enter the cave that is at a bottom of a volcano where the Red Stone is safely guarded. there are 3 tunnels in front of you, which one do you take?
+A. Left
+B. Middle
+C. Right
+
+Choice Result
+A. At the end of this tunnel you find an area full of lava with a few rocks that can be walked on, it was a close one, but you managed to go through without dying!
+B. At the end of this tunnel the ground is thin, you break it when you walk, fall into a pit, and die! 
+C. At the end of this tunnel you reach a big hole, you try to climb on the rocks to bypass the hole but right at the end, one of the rocks crumbles and you fall into a bottomless pit! 
+
+Stage 2
+-------
+After you dodge a few traps you find yourself inside the main area of the dungeon, in the middle, the red stone, without any guard, any protection what do you do?
+
+A. You just go and take the stone
+B. You assume its a trap, you through a few stones near the red stone and check if any trap is triggered
+C. You know its a trap, you walk carefully, checking every corner for hidden traps or messages until you reach the Red Stone
+
+Choice Result
+A. You die, you have no idea why!
+B. You died after you take the Red Stone from a trap
+C. You were clever enough to assume that the trigger was under the Red Stone, Lucky you switch the red stone with another stone that was the same weight and you survive!
+
+Congrats! you acquired the Red Stone, you can now create the portal to the void prison!
+Let's go!
+
+--------------------------------------------------------------------------------------------------------------------
+
+Dungeon Four: Void Prison
+Stage 1
+-------
+After you created the portal, you went through and started to look for Bart!
+Bart is inside a prison trapped inside an area with no entrance, just an empty void around it, what do you do?
+A. Use your _CLASS_ABILITY_HERE_ again
+B. Search for clues
+C. (Available only if you decided to take the water elemental with you!) Water Elemental offers to help by creating a water bridge
+
+Choice Result
+A.
+if class == warrior -> you heroic leap and... it's not enough, the void draws your power, and you fall into the void. You die.
+if class == mage -> you create a magical ground and walk on it, sadly the void magic is too strong, the magical ground breaks and Bart falls into the void. You die.
+if class == bard -> you use your magic books to create a path that you can walk on, sadly the void magic is too strong, and the books lose their power. Bart and the books fall into the void. You die.
+if class = clerk -> you prey for levitation and your prey is listened to, you slowly fly towards Bart, sadly the void magic is too strong, and you lose your flying ability and fall into the void. You die
+
+B. you find another captive that tells you that you can kill the guards inside the void to get some magical orbs that will make you immune to void magic
+
+C. the Water elemental creates a water bridge, the void is very strong and drains the power of the elemental, the water elemental sacrifices himself to keep the bridge up until Bart crosses it! Bart is saved!!!! as he dies, he tells you his name is Sammy, and thanks you for letting him save his friend. 
+
+Stage B.2 
+A. Kill enemies and take those magical orbs
+B. Ignore what the captive said, search for more
+
+Choice Result
+A. You take the magical orbs and do your _CLASS_ABILITY_HERE_
+if class == warrior -> you do a heroic leap and you reach Bart, do a leap again with Bart on your back, Bart is FREE!
+if class == mage -> you create a magical ground, you stand on it, Bart walks on it and he is FREE!
+if class == bard -> you use your magic books to create a path that can walk on, you stand on it, Bart can walk on it as well, and he is now FREE!
+if class = clerk -> you prey for levitation and your prey is listened to, you slowly fly towards Bart, take Bart in your hands, and fly back, Bart is FREE!
+B. you keep searching for clues, but you will never find them, Bart will never go free! You are never heard from again. 
+
+Stage 2
+-------
+Bart is now free, but he wants to defeat Skull to make sure he will never kidnap anyone else. You, him, and Red go on to face Skull, what do you do?
+A. Fight Skull with everything you have!
+B. Tell Bart we should not fight and we should survive to live another day!
+
+Choice Result
+A. After a few hours of fighting, you manage to kill Skull, all of you suffer a lot of injuries, but you will all survive, you go back home
+B. Bart disagrees and goes with Red to defeat Skull, they both die. A vengefuly apparition of Sammy eats your soul one night. 
+
+Congrattulations _PLAYER_NAME_HERE, you managed to save Bart from the evil Skull, Red is in your gratitude forever! Bart is also happy, he gives you a big claw cuddle!
+
+The End!
