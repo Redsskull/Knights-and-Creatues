@@ -169,7 +169,7 @@ def start_game():
         player = Player(player_name, archetype.name)
         player.archetype = archetype
 
-        cprint("Red needs your help to find his magical cat,\n"
+        cprint("Red needs your help to find his magical cat,"
                + "Bartholomew, he was kidnapped by" +
                "an evil enemy called Skull.", "blue")
         cprint("he cannot do this alone."
