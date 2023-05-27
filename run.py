@@ -184,7 +184,7 @@ def start_game():
             if choice == "y":
                 return player
             elif choice == "n":
-                cprint("Bart is upset!" "red")
+                cprint("Bart is upset!", "red")
                 exit()
             else:
                 print("Invalid input. Please enter 'y' for Yes or 'n' for No.")
@@ -317,7 +317,7 @@ def blue_stone_three(player):
        when we return with the stone, we don't want robbers to be here!
     Enter your choice: '''
 
-    choices = ["A", "B", "C"]
+    choices = ["A", "B"]
     outcomes = [
         ("Elemental is now your guardian", None),
         ("The elemental agrees, he will remain at his station", True)
@@ -728,7 +728,7 @@ def void_prison_three(player):
 
     Enter your choice: '''
 
-    choices = ["A", "B", "C"]
+    choices = ["A", "B"]
     outcomes = [
         ("After a few hours of fighting, you manage to kill Skull," +
          "all of you suffer a lot of injuries, " +
@@ -800,7 +800,7 @@ def main():
                   "save Bart from the evil Skull," +
                   "Red is in your gratitude forever! Bart is also happy," +
                   "he gives you a big claw cuddle and invites " +
-                  "you to watch basketball together one day", "green")
+                  "you to watch basketball together one day")
 
             restart_choice = ""
             while restart_choice not in ["y", "n"]:
