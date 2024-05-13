@@ -60,10 +60,10 @@ This application is meant for:
 
  ### Design Diagram
 
- To design this game, a story was written with logic which was then converted into code. the text can be found![here.](assests/text/FindBartholomew.txt) 
+ To design this game, a story was written with logic which was then converted into code. the text can be found![here.](/assests/text/FindBartholomew.txt) 
 
  ### Features
- As this is a text-based terminal game, the main feature is the terminal with some color added and a story.  ![screenshot of the game](assets/images/terminal.jpg)
+ As this is a text-based terminal game, the main feature is the terminal with some color added and a story.  ![screenshot of the game](/assets/images/terminal.jpg)
  ### Future Features
  - in time, I'd like to add more color and edit the text for better storytelling.
  - I have a music player I'd like to add one day for the atmosphere if the player wishes it.
