@@ -1,0 +1,59 @@
+{
+  "player": {
+    "name": "",
+    "class": "",
+    "attributes": {
+      "health": 100,
+      "strength": 10,
+      "magic": 10,
+      "charisma": 10
+    }
+  },
+  "inventory": {
+    "gemstones": {
+      "blue_stone": {
+        "collected": false,
+        "location": "underwater_cave",
+        "acquired_at": null
+      },
+      "yellow_stone": {
+        "collected": false,
+        "location": "desert_cave",
+        "acquired_at": null
+      },
+      "red_stone": {
+        "collected": false,
+        "location": "volcano_cave",
+        "acquired_at": null
+      }
+    },
+    "items": []
+  },
+  "companions": {
+    "water_elemental": {
+      "joined": false,
+      "name": "Sammy",
+      "abilities": ["create_water_bridge", "detect_traps", "swim_underwater"]
+    }
+  },
+  "progress": {
+    "current_scene": "start_game",
+    "completed_scenes": [],
+    "flags": {
+      "has_water_elemental": false,
+      "portal_created": false,
+      "bart_rescued": false,
+      "skull_defeated": false
+    },
+    "stats": {
+      "total_moves": 0,
+      "deaths": 0,
+      "restarts": 0
+    }
+  },
+  "settings": {
+    "difficulty": "normal",
+    "volume": 0.8,
+    "text_speed": 1.0
+  }
+}

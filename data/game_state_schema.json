@@ -1,0 +1,61 @@
+{
+  "game_state": {
+    "player": {
+      "name": "string",
+      "class": "string",
+      "attributes": {
+        "health": "number",
+        "strength": "number",
+        "magic": "number",
+        "charisma": "number"
+      }
+    },
+    "inventory": {
+      "gemstones": {
+        "blue_stone": {
+          "collected": "boolean",
+          "location": "string",
+          "acquired_at": "timestamp"
+        },
+        "yellow_stone": {
+          "collected": "boolean",
+          "location": "string",
+          "acquired_at": "timestamp"
+        },
+        "red_stone": {
+          "collected": "boolean",
+          "location": "string",
+          "acquired_at": "timestamp"
+        }
+      },
+      "items": ["string"]
+    },
+    "companions": {
+      "water_elemental": {
+        "joined": "boolean",
+        "name": "string",
+        "abilities": ["string"]
+      }
+    },
+    "progress": {
+      "current_scene": "string",
+      "completed_scenes": ["string"],
+      "flags": {
+        "has_water_elemental": "boolean",
+        "portal_created": "boolean",
+        "bart_rescued": "boolean",
+        "skull_defeated": "boolean"
+      },
+      "stats": {
+        "total_moves": "number",
+        "deaths": "number",
+        "restarts": "number"
+      }
+    },
+    "settings": {
+      "difficulty": "string",
+      "volume": "number",
+      "text_speed": "number"
+    }
+  }
+}

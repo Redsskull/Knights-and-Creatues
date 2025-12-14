@@ -11,10 +11,10 @@ Convert the existing terminal-based text adventure to a beautiful Pygame UI with
 - [ x] Set up basic Pygame window with title and basic event loop
 
 ### Day 2: JSON Data Structure Design
-- [ ] Create sample JSON structure for one scene (blue_stone)
-- [ ] Extract text from `blue_stone` function to JSON file
-- [ ] Design JSON schema for game state tracking
-- [ ] Create JSON for character classes and their abilities
+- [ x] Create sample JSON structure for one scene (blue_stone)
+- [ x] Extract text from `blue_stone` function to JSON file
+- [ x] Design JSON schema for game state tracking
+- [ x] Create JSON for character classes and their abilities
 
 ### Day 3: Basic UI Framework
 - [ ] Create a base UI class that can render text to screen

@@ -1,0 +1,112 @@
+{
+  "scene_id": "blue_stone",
+  "title": "The Blue Stone Adventure",
+  "chapters": [
+    {
+      "chapter_id": "encounter_dolphins",
+      "title": "The Underwater Cave",
+      "description": "The blue stone is hidden inside an underwater cave, in an Amazonian forest.",
+      "story_text": "You start swimming inside the lake, and soon you encounter a few dolphins.",
+      "prompt": "What will you do?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Pretend you are just here for a nice relaxing dive and move forward",
+          "result": {
+            "message": "You passed them, you found the cave and you enter it",
+            "success": true,
+            "next_chapter": "meet_elemental"
+          }
+        },
+        {
+          "id": "B",
+          "text": "Greet them and tell them what you are searching for",
+          "result": {
+            "message": "They became hostile when they found out you want the stone. You die.",
+            "success": false,
+            "next_chapter": null
+          }
+        },
+        {
+          "id": "C",
+          "text": "Ask them to help you in your journey to acquire the Blue Stone",
+          "result": {
+            "message": "They helped you find the stone, and then they kill you to take it for themselves. You die.",
+            "success": false,
+            "next_chapter": null
+          }
+        }
+      ]
+    },
+    {
+      "chapter_id": "meet_elemental",
+      "title": "The Water Elemental",
+      "description": "Inside the cave, there is a water elemental that protects the Blue Stone.",
+      "story_text": "He asks you why you are trying to steal the Blue Stone.",
+      "prompt": "What will you do?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Kill the elemental and take the Blue Stone",
+          "result": {
+            "message": "You die, the elemental was more powerful than you!",
+            "success": false,
+            "next_chapter": null
+          }
+        },
+        {
+          "id": "B",
+          "text": "Tell him that you are not stealing, you are helping Red to rescue Bart from the evil Skull",
+          "result": {
+            "message": "The elemental agrees to help you yeah he knows Bart very well!",
+            "success": true,
+            "next_chapter": "elemental_offer"
+          }
+        },
+        {
+          "id": "C",
+          "text": "Tell him that you need that stone to save someone and you will give the stone back once you finish your quest",
+          "result": {
+            "message": "The elemental thinks you are lying to him, you fight for a while, but in the end, you die",
+            "success": false,
+            "next_chapter": null
+          }
+        }
+      ]
+    },
+    {
+      "chapter_id": "elemental_offer",
+      "title": "The Elemental's Offer",
+      "description": "The elemental offers his help to save Bart.",
+      "story_text": "",
+      "prompt": "What do you say?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "Yes, we need all the help we can get",
+          "result": {
+            "message": "Elemental is now your guardian",
+            "success": true,
+            "special_effects": ["add_water_elemental_companion"],
+            "next_chapter": null
+          }
+        },
+        {
+          "id": "B",
+          "text": "No, You should guard this place when we return with the stone, we don't want robbers to be here!",
+          "result": {
+            "message": "The elemental agrees, he will remain at his station",
+            "success": true,
+            "next_chapter": null
+          }
+        }
+      ]
+    }
+  ],
+  "requires_input": true,
+  "background_image": "underwater_cave.png",
+  "completion_reward": {
+    "item": "blue_stone",
+    "unlock_flags": ["has_blue_stone"]
+  }
+}

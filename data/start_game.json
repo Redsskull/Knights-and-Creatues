@@ -1,0 +1,29 @@
+{
+  "scene_id": "start_game",
+  "title": "Begin Your Quest",
+  "description": "Welcome to the quest to find Bartholomew, also known as 'Bart the claw cuddler'",
+  "story_text": "Red needs your help to find his magical cat, Bartholomew, he was kidnapped by an evil enemy called Skull. He cannot do this alone. He needs your help to rescue Bart and defeat his enemy. To do that, you need to find the 3 gemstones and combine them to open a portal to the Void Prison where Bart is kept.",
+  "prompt": "Are you up for this challenge?",
+  "choices": [
+    {
+      "id": "y",
+      "text": "Yes, I accept the challenge!",
+      "outcome": {
+        "message": "The adventure begins...",
+        "success": true,
+        "next_scene": "choose_character_class"
+      }
+    },
+    {
+      "id": "n",
+      "text": "No, I'm not interested",
+      "outcome": {
+        "message": "Bart is upset!",
+        "success": false,
+        "next_scene": null
+      }
+    }
+  ],
+  "requires_input": true,
+  "background_image": "intro.png"
+}

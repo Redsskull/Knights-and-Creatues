@@ -1,0 +1,76 @@
+{
+  "classes": [
+    {
+      "id": "warrior",
+      "name": "Warrior",
+      "description": "When I was young I enjoyed playing with sticks and stones, fighting and defeating all of my father's scarecrows, dreamed about becoming a powerful warrior that defeats his foes and now here I am ready for my next challenge!",
+      "abilities": [
+        {
+          "id": "heroic_leap",
+          "name": "Heroic Leap",
+          "description": "You leap a great distance with great strength!",
+          "effect": "Allows reaching Bart in the void prison scenario"
+        }
+      ],
+      "attributes": {
+        "strength": 15,
+        "magic": 5,
+        "charisma": 10
+      }
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "description": "Are you thirsty? sorry, my water is not drinkable! Hungry? I can... cook... our enemies! Travel from town to town in a blink of an eye? show me your money!",
+      "abilities": [
+        {
+          "id": "magical_ground",
+          "name": "Magical Ground",
+          "description": "You create a magical ground to walk on",
+          "effect": "Allows creating a path in yellow stone scenario and void prison"
+        }
+      ],
+      "attributes": {
+        "strength": 5,
+        "magic": 15,
+        "charisma": 10
+      }
+    },
+    {
+      "id": "bard",
+      "name": "Bard",
+      "description": "In a realm of Myst Where the dreams come true, There we are in search of Bartholomew Also known as 'Bart the claw cuddler' And I have no idea how we will rescue him Deep in darkness is where we go Fingers crossed is what we hope Bart, here we come!",
+      "abilities": [
+        {
+          "id": "magical_books",
+          "name": "Magical Books",
+          "description": "You use magic books and sing songs",
+          "effect": "Allows creating a path in yellow stone scenario and void prison"
+        }
+      ],
+      "attributes": {
+        "strength": 8,
+        "magic": 12,
+        "charisma": 15
+      }
+    },
+    {
+      "id": "clerk",
+      "name": "Clerk",
+      "description": "In this dark world, instead of using swords, shields, or knives, I prefer to use my hands... to pray and heal others, but also to unleash the holy power upon our enemies, I prefer to work with a group of misfits, but in the end, if you pay me enough... I mean if you show me your great gratitude, I can go anywhere",
+      "abilities": [
+        {
+          "id": "holy_prayer",
+          "name": "Holy Prayer",
+          "description": "You pray to the Holy Light",
+          "effect": "Provides levitation and distraction abilities in various scenarios"
+        }
+      ],
+      "attributes": {
+        "strength": 10,
+        "magic": 10,
+        "charisma": 15
+      }
+    }
+  ]
+}

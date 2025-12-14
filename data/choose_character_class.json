@@ -1,0 +1,55 @@
+{
+  "scene_id": "choose_character_class",
+  "title": "Choose Your Class",
+  "description": "Select your character class for the adventure",
+  "story_text": "Choose your class for this epic journey",
+  "prompt": "Which class will you choose?",
+  "choices": [
+    {
+      "id": "1",
+      "text": "Warrior",
+      "description": "When I was young I enjoyed playing with sticks and stones, fighting and defeating all of my father's scarecrows, dreamed about becoming a powerful warrior that defeats his foes and now here I am ready for my next challenge!",
+      "outcome": {
+        "message": "You have chosen the Warrior class",
+        "success": true,
+        "character_class": "warrior",
+        "next_scene": "blue_stone"
+      }
+    },
+    {
+      "id": "2", 
+      "text": "Mage",
+      "description": "Are you thirsty? sorry, my water is not drinkable! Hungry? I can... cook... our enemies! Travel from town to town in a blink of an eye? show me your money!",
+      "outcome": {
+        "message": "You have chosen the Mage class", 
+        "success": true,
+        "character_class": "mage",
+        "next_scene": "blue_stone"
+      }
+    },
+    {
+      "id": "3",
+      "text": "Bard",
+      "description": "In a realm of Myst Where the dreams come true, There we are in search of Bartholomew Also known as 'Bart the claw cuddler' And I have no idea how we will rescue him Deep in darkness is where we go Fingers crossed is what we hope Bart, here we come!",
+      "outcome": {
+        "message": "You have chosen the Bard class",
+        "success": true,
+        "character_class": "bard", 
+        "next_scene": "blue_stone"
+      }
+    },
+    {
+      "id": "4",
+      "text": "Clerk",
+      "description": "In this dark world, instead of using swords, shields, or knives, I prefer to use my hands... to pray and heal others, but also to unleash the holy power upon our enemies, I prefer to work with a group of misfits, but in the end, if you pay me enough... I mean if you show me your great gratitude, I can go anywhere",
+      "outcome": {
+        "message": "You have chosen the Clerk class",
+        "success": true,
+        "character_class": "clerk",
+        "next_scene": "blue_stone"
+      }
+    }
+  ],
+  "requires_input": true,
+  "background_image": "character_selection.png"
+}
