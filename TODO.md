@@ -6,15 +6,15 @@ Convert the existing terminal-based text adventure to a beautiful Pygame UI with
 ## Week 1: Foundation & Setup
 
 ### Day 1: Environment Setup
-- [ x] Install Pygame: `pip install pygame`
-- [ x] Create new directory structure: `src/`, `assets/`, `data/`, `ui/`
-- [ x] Set up basic Pygame window with title and basic event loop
+- [x] Install Pygame: `pip install pygame`
+- [x] Create new directory structure: `src/`, `assets/`, `data/`, `ui/`
+- [x] Set up basic Pygame window with title and basic event loop
 
 ### Day 2: JSON Data Structure Design
-- [ x] Create sample JSON structure for one scene (blue_stone)
-- [ x] Extract text from `blue_stone` function to JSON file
-- [ x] Design JSON schema for game state tracking
-- [ x] Create JSON for character classes and their abilities
+- [x] Create sample JSON structure for one scene (blue_stone)
+- [x] Extract text from `blue_stone` function to JSON file
+- [x] Design JSON schema for game state tracking
+- [x] Create JSON for character classes and their abilities
 
 ### Day 3: Basic UI Framework
 - [x] Create a base UI class that can render text to screen
