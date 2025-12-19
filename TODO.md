@@ -17,10 +17,10 @@ Convert the existing terminal-based text adventure to a beautiful Pygame UI with
 - [ x] Create JSON for character classes and their abilities
 
 ### Day 3: Basic UI Framework
-- [ ] Create a base UI class that can render text to screen
-- [ ] Implement basic text wrapping for story panels
-- [ ] Create a simple button class
-- [ ] Load and display a sample text from JSON
+- [x] Create a base UI class that can render text to screen
+- [x] Implement basic text wrapping for story panels
+- [x] Create a simple button class
+- [x] Load and display a sample text from JSON
 
 ### Day 4: Scene Management System
 - [ ] Create a Scene base class
