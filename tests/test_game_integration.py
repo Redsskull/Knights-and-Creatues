@@ -6,7 +6,7 @@ Tests the complete user experience and game flow with real components.
 import pytest
 import pygame
 import time
-from test_helpers import GameTestHelper, GameFlowTester, create_test_helper
+from test_helpers import GameFlowTester, create_test_helper
 
 
 class TestGameIntegration:
@@ -165,8 +165,8 @@ class TestBlueStoneScenario:
         self.helper.game.update()
 
         # Should now have different story content (water elemental)
-        story_text = self.helper.get_scene_data('story_text')
-        info_text = self.helper.get_scene_data('info_text')
+        self.helper.get_scene_data('story_text')
+        self.helper.get_scene_data('info_text')
 
         # Verify we progressed (different content or choices)
         buttons = self.helper.get_scene_buttons()

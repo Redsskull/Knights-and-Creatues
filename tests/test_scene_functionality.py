@@ -6,7 +6,7 @@ Tests individual scene functionality with real components and JSON data.
 import pytest
 import pygame
 import time
-from test_helpers import GameTestHelper, create_test_helper
+from test_helpers import create_test_helper
 
 
 class TestStartGameScene:

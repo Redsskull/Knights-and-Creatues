@@ -13,8 +13,8 @@ from typing import Optional, Dict, Any, List
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ui.main_game import KnightsAndCreaturesGame
-from ui.scene_manager import SceneManager
-from ui.scene import Scene, JSONScene
+
+from ui.scene import Scene
 
 
 class GameTestHelper:
