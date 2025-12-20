@@ -11,7 +11,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from ui.scene_manager import SceneManager
-from ui.demo_scene import DemoScene
+# from ui.demo_scene import DemoScene  # TODO: Create demo scene
 
 
 class KnightsAndCreaturesGame:
@@ -42,9 +42,9 @@ class KnightsAndCreaturesGame:
         # Set up default JSON-based scenes
         self.scene_manager.setup_default_scenes()
 
-        # Add demo scene
-        demo_scene = DemoScene(self.scene_manager)
-        self.scene_manager.register_scene("demo", demo_scene)
+        # TODO: Add demo scene when created
+        # demo_scene = DemoScene(self.scene_manager)
+        # self.scene_manager.register_scene("demo", demo_scene)
 
         print("Game scenes set up:")
         for scene_id in self.scene_manager.list_scenes():
@@ -67,8 +67,8 @@ class KnightsAndCreaturesGame:
             # Handle any remaining global events
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_F1:
-                    # F1 to go to demo scene
-                    self.scene_manager.transition_to("demo")
+                    # F1 to go to start_game scene
+                    self.scene_manager.transition_to("start_game")
                 elif event.key == pygame.K_F2:
                     # F2 to cycle through scenes
                     self.cycle_scenes()
@@ -137,16 +137,22 @@ class KnightsAndCreaturesGame:
         print(f"Screen size: {self.SCREEN_WIDTH}x{self.SCREEN_HEIGHT}")
         print("-" * 50)
 
-        # Start with demo scene
-        if not self.scene_manager.start_game("demo"):
-            print("Failed to start game - falling back to start_game scene")
-            if not self.scene_manager.start_game("start_game"):
-                print("Critical error: No valid scenes found!")
+        # Start with start_game scene (demo scene not yet implemented)
+        if not self.scene_manager.start_game("start_game"):
+            print("Failed to start game - trying alternative scenes")
+            # Try other available scenes
+            scenes = self.scene_manager.list_scenes()
+            if scenes:
+                if not self.scene_manager.start_game(scenes[0]):
+                    print("Critical error: No valid scenes found!")
+                    return
+            else:
+                print("Critical error: No scenes available!")
                 return
 
         print("Game started successfully!")
-        print("\nControls:")
-        print("  F1 - Go to Demo Scene")
+        print("Controls:")
+        print("  F1 - Go to Start Game Scene")
         print("  F2 - Cycle through scenes")
         print("  ESC - Quit game")
         print("  Scene-specific controls shown in each scene")

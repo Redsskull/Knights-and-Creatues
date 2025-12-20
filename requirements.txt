@@ -1,2 +1,4 @@
 termcolor
 pygame
+pytest
+pytest-mock

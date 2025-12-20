@@ -1,6 +1,6 @@
 """
-Scene management system for Knights and Creatures game.
-Provides base Scene class and scene transition functionality.
+Enhanced Scene management system for Knights and Creatures game.
+Provides base Scene class with improved input handling, keyboard navigation, and scene transition functionality.
 """
 
 import pygame
@@ -9,7 +9,7 @@ from .button import Button, ButtonGroup
 
 
 class Scene:
-    """Base class for all game scenes."""
+    """Base class for all game scenes with enhanced input handling."""
 
     def __init__(self, scene_manager, scene_id, title="Untitled Scene"):
         # scene_manager: SceneManager instance
@@ -33,6 +33,14 @@ class Scene:
         # Scene data
         self.scene_data = {}
         self.choices = []
+
+        # Input handling
+        self.input_blocked = False
+        self.transition_in_progress = False
+
+        # Animation state
+        self.fade_alpha = 0
+        self.scene_transition_time = 0
 
     def initialize(self):
         """Initialize the scene. Override this in subclasses."""
@@ -59,9 +67,15 @@ class Scene:
         if not self.is_initialized:
             self.initialize()
 
+        # Enable button group keyboard navigation
+        self.button_group.set_keyboard_navigation(True)
+        self.input_blocked = False
+        self.transition_in_progress = False
+
     def exit(self):
         """Called when leaving this scene."""
         self.is_active = False
+        self.input_blocked = True
 
     def handle_event(self, event):
         """
@@ -73,17 +87,21 @@ class Scene:
         Returns:
             True if event was handled, False otherwise (bool)
         """
-        if not self.is_active:
+        if not self.is_active or self.input_blocked:
             return False
 
-        # Handle button events
+        # Handle button events first
         clicked_button = self.button_group.handle_event(event)
         if clicked_button:
             return self.on_button_click(clicked_button)
 
         # Handle keyboard events
         if event.type == pygame.KEYDOWN:
-            return self.on_key_press(event.key)
+            return self.on_key_press(event.key, event.mod)
+
+        # Handle mouse events
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            return self.on_mouse_click(event.pos, event.button)
 
         return False
 
@@ -97,24 +115,78 @@ class Scene:
         Returns:
             True if handled (bool)
         """
-        # Override in subclasses
-        return False
+        # Default implementation - override in subclasses
+        print(f"Button clicked: {button.text}")
+        return True
 
-    def on_key_press(self, key):
+    def on_key_press(self, key, mod):
         """
         Handle key press events.
 
         Args:
             key: pygame key constant
+            mod: pygame key modifier constant
 
         Returns:
             True if handled (bool)
         """
-        # Default key handling
+        # Global key handling
         if key == pygame.K_ESCAPE:
             self.scene_manager.quit_game()
             return True
+
+        # Number keys for quick choice selection
+        if pygame.K_1 <= key <= pygame.K_9:
+            choice_index = key - pygame.K_1
+            if choice_index < self.button_group.get_button_count():
+                self.button_group.select_button(choice_index)
+                button = self.button_group.get_selected_button()
+                if button and button.callback:
+                    button.callback()
+                return True
+
+        # F keys for testing and debugging
+        if key == pygame.K_F5:
+            self.reload_scene()
+            return True
+        elif key == pygame.K_F12:
+            self.toggle_debug_info()
+            return True
+
         return False
+
+    def on_mouse_click(self, pos, button):
+        """
+        Handle mouse click events.
+
+        Args:
+            pos: Mouse position (x, y)
+            button: Mouse button pressed (1=left, 2=middle, 3=right)
+
+        Returns:
+            True if handled (bool)
+        """
+        # Right-click for context menu (future implementation)
+        if button == 3:
+            self.show_context_menu(pos)
+            return True
+
+        return False
+
+    def show_context_menu(self, pos):
+        """Show context menu at position (placeholder for future implementation)."""
+        print(f"Context menu requested at {pos}")
+
+    def reload_scene(self):
+        """Reload the current scene (for debugging)."""
+        print(f"Reloading scene: {self.scene_id}")
+        self.is_initialized = False
+        self.button_group.clear()
+        self.initialize()
+
+    def toggle_debug_info(self):
+        """Toggle debug information display."""
+        print(f"Debug info toggle for scene: {self.scene_id}")
 
     def update(self, dt):
         """
@@ -123,9 +195,24 @@ class Scene:
         Args:
             dt: delta time since last update (float)
         """
+        # Update buttons
+        self.button_group.update_all(dt)
+
         # Update hover states for buttons
         mouse_pos = pygame.mouse.get_pos()
         self.button_group.update_hover_states(mouse_pos)
+
+        # Update scene-specific logic
+        self.update_scene_logic(dt)
+
+    def update_scene_logic(self, dt):
+        """
+        Update scene-specific logic. Override in subclasses.
+
+        Args:
+            dt: delta time since last update (float)
+        """
+        pass
 
     def render(self):
         """Render the scene to the screen."""
@@ -154,6 +241,33 @@ class Scene:
         # Draw buttons
         self.button_group.draw_all()
 
+        # Draw scene-specific content
+        self.render_scene_content()
+
+        # Draw keyboard hints
+        self.render_keyboard_hints()
+
+    def render_scene_content(self):
+        """Render scene-specific content. Override in subclasses."""
+        pass
+
+    def render_keyboard_hints(self):
+        """Render keyboard navigation hints."""
+        if self.button_group.get_button_count() > 0:
+            hints = [
+                "Arrow Keys: Navigate",
+                "Enter/Space: Select",
+                "1-9: Quick Select",
+                "ESC: Exit"
+            ]
+
+            y_offset = self.screen.get_height() - 100
+            font = pygame.font.Font(None, 20)
+
+            for i, hint in enumerate(hints):
+                text_surface = font.render(hint, True, (150, 150, 150))
+                self.screen.blit(text_surface, (10, y_offset + i * 20))
+
     def transition_to(self, scene_id, data=None):
         """
         Transition to another scene.
@@ -162,7 +276,9 @@ class Scene:
             scene_id: ID of scene to transition to (str)
             data: Optional data to pass to next scene (dict)
         """
-        self.scene_manager.transition_to(scene_id, data)
+        if not self.transition_in_progress:
+            self.transition_in_progress = True
+            self.scene_manager.transition_to(scene_id, data, use_transition=False)
 
     def set_scene_data(self, data):
         """
@@ -173,14 +289,58 @@ class Scene:
         """
         self.scene_data = data or {}
 
+    def block_input(self, blocked=True):
+        """
+        Block or unblock input handling.
+
+        Args:
+            blocked: Whether input should be blocked (bool)
+        """
+        self.input_blocked = blocked
+
+    def add_choice_button(self, choice_id, text, callback, keyboard_key=None):
+        """
+        Add a choice button to the scene.
+
+        Args:
+            choice_id: Unique identifier for the choice (str)
+            text: Display text for the button (str)
+            callback: Function to call when clicked (callable)
+            keyboard_key: Optional keyboard shortcut (pygame key constant)
+        """
+        button_count = self.button_group.get_button_count()
+        button_y = 460 + (button_count * 40)
+
+        button = Button(
+            self.screen,
+            50,
+            button_y,
+            500,
+            35,
+            text,
+            callback,
+            keyboard_key
+        )
+
+        self.button_group.add_button(button)
+        return button
+
+    def clear_choice_buttons(self):
+        """Clear all choice buttons from the scene."""
+        self.button_group.clear()
+
 
 class JSONScene(Scene):
-    """Scene that loads content from JSON files."""
+    """Scene that loads content from JSON files with enhanced input handling."""
 
     def __init__(self, scene_manager, scene_id, json_file, title=None):
         # json_file: name of JSON file to load (str)
         super().__init__(scene_manager, scene_id, title or scene_id.replace('_', ' ').title())
         self.json_file = json_file
+        self.current_choice_data = {}
+        self.pending_transition = None
+        self.current_chapter = ''
+        self.scene_chapters = {}
 
     def load_content(self):
         """Load content from JSON file."""
@@ -211,7 +371,7 @@ class JSONScene(Scene):
         """
         # Handle different JSON structures
         if 'chapters' in content:
-            # Scene-based JSON structure
+            # Scene-based JSON structure with chapters
             self.parse_scene_chapters(content)
         elif 'classes' in content:
             # Character classes JSON
@@ -230,28 +390,42 @@ class JSONScene(Scene):
         """Parse scene with chapters structure."""
         self.title = content.get('title', self.title)
 
-        # Get first chapter for display
+        # Store all chapters for navigation
         chapters = content.get('chapters', [])
+        self.scene_chapters = {chapter.get('chapter_id', ''): chapter for chapter in chapters}
+
         if chapters:
             first_chapter = chapters[0]
-            story_text = first_chapter.get('story_text', '')
-            description = first_chapter.get('description', '')
-
-            if description:
-                story_text = f"{description}\n\n{story_text}"
-
-            self.scene_data = {
-                'story_text': story_text,
-                'info_text': f"Scene: {content.get('scene_id', 'Unknown')}\nChapters: {len(chapters)}"
-            }
-
-            # Create choice buttons
-            self.create_choice_buttons(first_chapter.get('choices', []))
+            self.load_chapter(first_chapter)
         else:
             self.scene_data = {
                 'story_text': 'No chapters found in scene data.',
                 'info_text': 'Scene loading error'
             }
+
+    def load_chapter(self, chapter):
+        """Load a specific chapter's content."""
+        story_text = chapter.get('story_text', '')
+        description = chapter.get('description', '')
+
+        if description:
+            story_text = f"{description}\n\n{story_text}"
+
+        prompt = chapter.get('prompt', '')
+        if prompt:
+            story_text = f"{story_text}\n\n{prompt}"
+
+        self.scene_data = {
+            'story_text': story_text,
+            'info_text': f"Chapter: {chapter.get('title', 'Unknown')}\nScene: {self.scene_id}"
+        }
+
+        # Create choice buttons with keyboard shortcuts
+        self.clear_choice_buttons()
+        self.create_choice_buttons(chapter.get('choices', []))
+
+        # Store current chapter for multi-chapter scenes
+        self.current_chapter = chapter.get('chapter_id', '')
 
     def parse_character_classes(self, content):
         """Parse character classes structure."""
@@ -265,7 +439,7 @@ class JSONScene(Scene):
                 'info_text': f"Available Classes: {len(classes)}\n\nSelect a class to begin your adventure."
             }
 
-            # Create class selection buttons
+            # Create class selection buttons with keyboard shortcuts
             self.create_class_buttons(classes[:4])  # Show first 4 classes
         else:
             self.scene_data = {
@@ -288,53 +462,47 @@ class JSONScene(Scene):
 
     def create_choice_buttons(self, choices):
         """
-        Create buttons for story choices.
+        Create buttons for story choices with keyboard shortcuts.
 
         Args:
             choices: List of choice dictionaries
         """
-        button_y = 460
-        button_width = 500
-        button_height = 35
+        self.clear_choice_buttons()
 
-        for i, choice in enumerate(choices[:4]):  # Limit to 4 choices
-            choice_text = f"{choice.get('id', i+1)}: {choice.get('text', 'Unknown choice')}"
+        for i, choice in enumerate(choices[:9]):  # Limit to 9 choices for number keys
+            choice_text = f"{choice.get('text', 'Unknown choice')}"
+            keyboard_key = getattr(pygame, f'K_{i+1}') if i < 9 else None
 
-            button = Button(
-                self.screen,
-                50,
-                button_y + (i * 40),
-                button_width,
-                button_height,
-                choice_text,
-                lambda c=choice: self.handle_choice(c)
+            # Store choice data for handling
+            choice_id = choice.get('id', str(i+1))
+            self.current_choice_data[choice_id] = choice
+
+            self.add_choice_button(
+                choice_id,
+                f"{i+1}. {choice_text}",
+                lambda c=choice: self.handle_choice(c),
+                keyboard_key
             )
-            self.button_group.add_button(button)
 
     def create_class_buttons(self, classes):
         """
-        Create buttons for character class selection.
+        Create buttons for character class selection with keyboard shortcuts.
 
         Args:
             classes: List of class dictionaries
         """
-        button_y = 460
-        button_width = 200
-        button_height = 35
+        self.clear_choice_buttons()
 
         for i, char_class in enumerate(classes):
             class_name = char_class.get('name', f'Class {i+1}')
+            keyboard_key = getattr(pygame, f'K_{i+1}') if i < 9 else None
 
-            button = Button(
-                self.screen,
-                50 + (i % 2) * 220,  # Two columns
-                button_y + (i // 2) * 40,
-                button_width,
-                button_height,
-                class_name,
-                lambda c=char_class: self.handle_class_selection(c)
+            self.add_choice_button(
+                f"class_{i}",
+                f"{i+1}. {class_name}",
+                lambda c=char_class: self.handle_class_selection(c),
+                keyboard_key
             )
-            self.button_group.add_button(button)
 
     def handle_choice(self, choice):
         """
@@ -344,16 +512,44 @@ class JSONScene(Scene):
             choice: Selected choice dictionary
         """
         choice_id = choice.get('id', '')
-        result = choice.get('result', {})
+
+        # Support both 'outcome' (start_game.json) and 'result' (blue_stone_scenes.json) formats
+        outcome = choice.get('outcome') or choice.get('result', {})
 
         print(f"Selected choice: {choice_id}")
-        print(f"Result: {result.get('message', 'No result message')}")
 
-        # Check if this leads to another scene
-        next_chapter = result.get('next_chapter')
-        if next_chapter:
-            # For now, just print - we'll implement proper transitions later
-            print(f"Would transition to: {next_chapter}")
+        # Show choice result message
+        message = outcome.get('message', 'No result message')
+        print(f"Result: {message}")
+
+        # Update info panel with result
+        self.scene_data['info_text'] = f"Choice: {choice.get('text', 'Unknown')}\n\nResult: {message}"
+
+        # Store choice in game data
+        self.scene_manager.set_game_data(f'last_choice_{self.scene_id}', choice_id)
+
+        # Check for scene transitions - support both formats
+        next_scene = outcome.get('next_scene') or outcome.get('next_chapter')
+
+        if next_scene:
+            # Store the transition target and set timer
+            self.pending_transition = next_scene
+            pygame.time.set_timer(pygame.USEREVENT + 1, 1500)  # 1.5 second delay
+        else:
+            # If no next scene but outcome is successful, try default progression
+            if outcome.get('success', False):
+                # For start_game scene, go to character selection
+                if self.scene_id == 'start_game':
+                    self.pending_transition = 'character_select'
+                    pygame.time.set_timer(pygame.USEREVENT + 1, 1000)
+                # For blue_stone scene completion, progress to next stone
+                elif self.scene_id == 'blue_stone':
+                    # Store blue stone completion and move to yellow stone
+                    self.scene_manager.set_game_data('has_blue_stone', True)
+                    self.pending_transition = 'yellow_stone'
+                    pygame.time.set_timer(pygame.USEREVENT + 1, 1500)
+                else:
+                    print("Choice completed - no further progression defined")
 
     def handle_class_selection(self, char_class):
         """
@@ -364,6 +560,9 @@ class JSONScene(Scene):
         """
         class_name = char_class.get('name', 'Unknown')
         print(f"Selected class: {class_name}")
+
+        # Store selection in game data
+        self.scene_manager.set_game_data('selected_class', char_class)
 
         # Update info panel to show selected class
         abilities = char_class.get('abilities', [])
@@ -378,3 +577,55 @@ class JSONScene(Scene):
             info_text += f"Special Ability:\n{abilities[0].get('name', 'None')}"
 
         self.scene_data['info_text'] = info_text
+
+        # Set up transition after class selection
+        self.pending_transition = 'blue_stone'  # Default next scene after character selection
+        pygame.time.set_timer(pygame.USEREVENT + 2, 2000)  # 2 second delay
+
+    def handle_event(self, event):
+        """
+        Enhanced event handling for JSON scenes.
+
+        Args:
+            event: pygame event to handle
+
+        Returns:
+            True if event was handled (bool)
+        """
+        # Handle custom timer events
+        if event.type == pygame.USEREVENT + 1:
+            # Choice selection delay finished
+            pygame.time.set_timer(pygame.USEREVENT + 1, 0)  # Cancel timer
+            if hasattr(self, 'pending_transition') and self.pending_transition:
+                next_target = self.pending_transition
+                self.pending_transition = None
+
+                # Check if it's a chapter transition within the same scene
+                if next_target in self.scene_chapters:
+                    # Load the next chapter
+                    next_chapter = self.scene_chapters[next_target]
+                    self.load_chapter(next_chapter)
+                else:
+                    # Transition to a different scene
+                    self.transition_to(next_target)
+            return True
+
+        elif event.type == pygame.USEREVENT + 2:
+            # Class selection delay finished
+            pygame.time.set_timer(pygame.USEREVENT + 2, 0)  # Cancel timer
+            if hasattr(self, 'pending_transition') and self.pending_transition:
+                next_scene = self.pending_transition
+                self.pending_transition = None
+                self.transition_to(next_scene)
+            else:
+                # Default: go to blue_stone scene after character selection
+                self.transition_to('blue_stone')
+            return True
+
+        # Call parent event handling
+        return super().handle_event(event)
+
+    def render_scene_content(self):
+        """Render JSON scene specific content."""
+        # Add any JSON-specific rendering here
+        pass

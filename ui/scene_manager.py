@@ -4,8 +4,7 @@ Handles scene transitions, management, and game state.
 """
 
 import pygame
-import sys
-from .scene import Scene, JSONScene
+from .scene import JSONScene
 from .json_loader import JSONContentLoader
 
 
@@ -217,7 +216,8 @@ class SceneManager:
         # Create scenes based on available JSON files
         scene_configs = [
             ("blue_stone", "blue_stone_scenes.json", "The Blue Stone Adventure"),
-            ("character_select", "character_classes.json", "Choose Your Character"),
+            ("choose_character_class", "character_classes.json", "Choose Your Character"),
+            ("character_select", "character_classes.json", "Choose Your Character"),  # Alias for compatibility
             ("start_game", "start_game.json", "Begin Your Quest"),
             ("main_menu", "start_game.json", "Main Menu")  # Reuse start_game for demo
         ]

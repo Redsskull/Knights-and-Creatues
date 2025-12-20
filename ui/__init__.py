@@ -8,7 +8,7 @@ from .button import Button, ButtonGroup
 from .json_loader import JSONContentLoader
 from .scene import Scene, JSONScene
 from .scene_manager import SceneManager
-from .demo_scene import DemoScene
+# from .demo_scene import DemoScene  # TODO: Create demo scene
 
 __all__ = [
     'UIBase',
@@ -19,5 +19,5 @@ __all__ = [
     'Scene',
     'JSONScene',
     'SceneManager',
-    'DemoScene'
+    # 'DemoScene'  # TODO: Add when demo scene is created
 ]

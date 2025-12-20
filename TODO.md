@@ -23,22 +23,22 @@ Convert the existing terminal-based text adventure to a beautiful Pygame UI with
 - [x] Load and display a sample text from JSON
 
 ### Day 4: Scene Management System
-- [ ] Create a Scene base class
-- [ ] Implement a Scene Manager to handle transitions
-- [ ] Create a simple scene that loads from JSON
-- [ ] Add basic transitions between scenes
+- [x] Create a Scene base class
+- [x] Implement a Scene Manager to handle transitions
+- [x] Create a simple scene that loads from JSON
+- [x] Add basic transitions between scenes
 
 ### Day 5: Player Input System
-- [ ] Replace `input()` functionality with mouse-based button clicks
-- [ ] Implement hover effects on buttons
-- [ ] Add basic keyboard navigation (arrow keys, enter)
-- [ ] Test basic scene transition with JSON-loaded content
+- [x] Replace `input()` functionality with mouse-based button clicks
+- [x] Implement hover effects on buttons
+- [x] Add basic keyboard navigation (arrow keys, enter)
+- [x] Test basic scene transition with JSON-loaded content
 
 ### Day 6: Content Migration
-- [ ] Convert `start_game()` function to JSON and UI scene
-- [ ] Create character selection UI scene
-- [ ] Add class-specific ability descriptions from JSON
-- [ ] Test character selection flow
+- [x] Convert `start_game()` function to JSON and UI scene
+- [x] Create character selection UI scene
+- [x] Add class-specific ability descriptions from JSON
+- [x] Test character selection flow
 
 ## Week 2: Core Gameplay Conversion
 
